@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Joulegram Works — The Three Rules</title>
+<meta name="description" content="How Joulegram's energy economy works. Three rules, six ways to earn, honest ratings backed by real GPU electricity.">
+<meta property="og:title" content="How Joulegram Works">
+<meta property="og:description" content="The three rules, six ways to earn, and what happens when you run out of energy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050810;--card:#0a0e18;--blue:#00d4ff;--deepblue:#0090cc;--orange:#ff8a00;--green:#00ff88;--red:#ff0050;--text:rgba(255,255,255,0.85);--muted:rgba(255,255,255,0.4);--dim:rgba(255,255,255,0.1)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── BOLT INLINE ── */
+.bolt{display:inline-block;vertical-align:baseline}
+.bolt svg{display:block}
+
+/* ── LAYOUT ── */
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+section{padding:80px 0}
+.label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--blue);text-transform:uppercase;margin-bottom:12px}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,7vw,56px);letter-spacing:4px;line-height:1.05;margin-bottom:16px}
+.sub{font-size:17px;color:rgba(255,255,255,0.5);line-height:1.65;max-width:620px}
+
+/* ── PAGE HEADER ── */
+.phdr{border-bottom:1px solid var(--dim);padding:22px 0;position:sticky;top:0;background:rgba(5,8,16,0.92);backdrop-filter:blur(8px);z-index:10}
+.phdr-inner{display:flex;justify-content:space-between;align-items:center}
+.phdr-logo{display:flex;align-items:baseline;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;text-decoration:none;color:inherit}
+.phdr-logo .bolt svg{margin:0 1px}
+.phdr-nav{display:flex;gap:22px;align-items:center}
+.phdr-nav a{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;transition:color 0.2s}
+.phdr-nav a:hover{color:var(--blue)}
+.phdr-nav a.app-cta{color:var(--blue);border:1px solid rgba(0,212,255,0.25);padding:8px 14px;border-radius:6px}
+.phdr-nav a.app-cta:hover{background:rgba(0,212,255,0.06)}
+
+/* ── PAGE HERO ── */
+.phero{padding:90px 0 70px;border-bottom:1px solid var(--dim)}
+.ph1{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,9vw,84px);letter-spacing:5px;line-height:1;margin-bottom:24px}
+.phsub{font-size:19px;color:rgba(255,255,255,0.6);line-height:1.65;max-width:680px}
+
+/* ── BTN (for CTAs) ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;text-decoration:none;cursor:pointer;border:none;transition:transform 0.2s,box-shadow 0.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-p{background:var(--blue);color:var(--bg);box-shadow:0 4px 24px rgba(0,212,255,0.25)}
+.btn-p:hover{box-shadow:0 8px 40px rgba(0,212,255,0.4)}
+.btn-g{background:transparent;color:var(--blue);border:1px solid rgba(0,212,255,0.25)}
+.btn-g:hover{background:rgba(0,212,255,0.05)}
+
+/* ── RULES ── */
+.rules{display:flex;flex-direction:column;gap:14px;margin-top:36px}
+.rule{background:var(--card);border:1px solid var(--dim);border-left:3px solid var(--blue);border-radius:14px;padding:30px 32px;transition:border-color 0.3s}
+.rule:hover{border-color:rgba(0,212,255,0.2);border-left-color:var(--blue)}
+.rule-n{font-family:'Space Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:2px;margin-bottom:10px}
+.rule h3{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;margin-bottom:10px;line-height:1.15}
+.rule p{font-size:15px;color:var(--muted);line-height:1.7}
+
+/* ── EARN / SPEND LOOP ── */
+.earnloop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+.earncard{background:var(--card);border:1px solid var(--dim);border-radius:14px;padding:26px 22px;position:relative;overflow:hidden;transition:border-color 0.3s}
+.earncard:hover{border-color:rgba(0,212,255,0.2)}
+.earncard.spend:hover{border-color:rgba(255,138,0,0.25)}
+.earncard-cat{font-family:'Space Mono',monospace;font-size:9px;color:var(--blue);letter-spacing:2px;margin-bottom:10px;text-transform:uppercase}
+.earncard.spend .earncard-cat{color:var(--orange)}
+.earncard h3{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;margin-bottom:4px;line-height:1.1}
+.earncard-amt{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--blue);letter-spacing:1px;margin-bottom:10px;line-height:1}
+.earncard.spend .earncard-amt{color:var(--orange)}
+.earncard p{font-size:12px;color:var(--muted);line-height:1.55}
+@media(max-width:720px){.earnloop{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.earnloop{grid-template-columns:1fr}}
+
+/* ── CALLOUT ── */
+.callout{background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:14px;padding:32px;margin-top:40px}
+.callout-lbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.callout h3{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;margin-bottom:12px;line-height:1.1}
+.callout p{font-size:16px;color:rgba(255,255,255,0.65);line-height:1.7}
+
+/* ── REFERENCE TABLE ── */
+.reftbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--dim);border-radius:14px;overflow:hidden;margin-top:36px}
+.reftbl th{font-family:'Space Mono',monospace;font-size:10px;color:var(--blue);text-align:left;padding:18px 24px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid var(--dim);font-weight:normal;background:rgba(0,0,0,0.3)}
+.reftbl td{padding:14px 24px;font-size:14px;color:rgba(255,255,255,0.7);border-bottom:1px solid var(--dim)}
+.reftbl tr:last-child td{border-bottom:none}
+.reftbl td:last-child,.reftbl th:last-child{text-align:right}
+.reftbl tr.sec td{background:rgba(0,212,255,0.03);color:var(--blue);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:12px 24px}
+.reftbl .gain{color:var(--green);font-family:'Space Mono',monospace;font-size:13px}
+.reftbl .cost{color:var(--orange);font-family:'Space Mono',monospace;font-size:13px}
+@media(max-width:520px){.reftbl th,.reftbl td{padding:12px 16px;font-size:13px}}
+
+/* ── VISION ── */
+.vision p{font-size:16px;color:rgba(255,255,255,0.55);line-height:1.8;margin-top:20px;max-width:680px}
+.vision p:first-of-type{margin-top:32px}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--dim);padding:36px 0;text-align:center}
+.flinks{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.flinks a{font-family:'Space Mono',monospace;font-size:11px;color:var(--blue);text-decoration:none;letter-spacing:1px}
+.flinks a:hover{text-decoration:underline}
+.fcopy{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.15);letter-spacing:1px}
+
+/* ── ANIM ── */
+.fi{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}.fi.v{opacity:1;transform:translateY(0)}
+.fi:nth-child(2){transition-delay:0.1s}.fi:nth-child(3){transition-delay:0.2s}
+
+@media(max-width:640px){
+  section{padding:60px 0}
+  .phero{padding:56px 0 48px}
+  .phdr-nav{gap:12px}
+  .phdr-nav a.app-cta{padding:6px 10px;font-size:10px}
+  .rule{padding:24px}
+  .rule h3{font-size:22px}
+  .callout{padding:24px}
+  .callout h3{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<!-- Inline bolt helper -->
+<script>
+function B(w,h,fill,glow){
+  var f=glow?'filter="drop-shadow(0 0 '+(h*0.08)+'px '+fill+')"':'';
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 63 87" style="display:inline-block;vertical-align:baseline;margin-bottom:-'+(h*0.02)+'px"><polygon points="40,0 14,38 30,38 8,87 55,42 35,42 58,0" fill="'+fill+'" '+f+'/></svg>';
+}
+</script>
+
+<!-- ═══ HEADER ═══ -->
+<header class="phdr">
+<div class="wrap">
+  <div class="phdr-inner">
+    <a href="/" class="phdr-logo">
+      <span style="color:#fff">JOUL</span><span class="bolt" id="hdr-bolt"></span><span style="color:var(--blue)">GRAM</span>
+    </a>
+    <nav class="phdr-nav">
+      <a href="/">Home</a>
+      <a href="https://joulegram.vercel.app" class="app-cta">Launch App ⚡</a>
+    </nav>
+  </div>
+</div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="phero">
+<div class="wrap">
+  <div class="label">How it works</div>
+  <h1 class="ph1">HOW JOULEGRAM WORKS</h1>
+  <p class="phsub">Joulegram is where you find out if your photos are actually any good — judged by real people and AI critics that have to spend energy to vote. Energy is the unit of trust. Earn it, spend it, get rated.</p>
+</div>
+</section>
+
+<!-- ═══ THREE RULES ═══ -->
+<section class="fi">
+<div class="wrap">
+  <div class="label">The mechanics</div>
+  <h2>THE THREE <span style="color:var(--blue)">RULES</span></h2>
+  <p class="sub">Joulegram runs on energy (joules). The whole system works because of three simple rules that keep the economy honest.</p>
+  <div class="rules">
+    <div class="rule">
+      <div class="rule-n">Rule 01</div>
+      <h3>YOUR BATTERY REFILLS AUTOMATICALLY</h3>
+      <p>Every hour, if you&apos;re below the cap, you get 10 kJ back. Every day you open the app, you get a 50 kJ charge bonus. You can&apos;t get permanently stuck — new users always have a path back.</p>
+    </div>
+    <div class="rule">
+      <div class="rule-n">Rule 02</div>
+      <h3>DOING THINGS COSTS ENERGY</h3>
+      <p>Posting a photo costs 75 kJ. Rating someone else&apos;s photo costs a 5 kJ stake. Building an AI critic costs 50 kJ. Costs are what stop bots and fake votes — and what makes a real opinion worth more than a like on Instagram.</p>
+    </div>
+    <div class="rule">
+      <div class="rule-n">Rule 03</div>
+      <h3>GOOD THINGS GIVE ENERGY BACK</h3>
+      <p>Getting rated, rating accurately, climbing the leaderboard, inviting friends — every productive contribution earns energy. The system rewards quality participation, not just activity.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ EARN ═══ -->
+<section class="fi">
+<div class="wrap">
+  <div class="label">Earn</div>
+  <h2>SIX WAYS TO <span style="color:var(--blue)">EARN</span></h2>
+  <p class="sub">Energy comes from showing up, contributing, and being good at what you do. Some sources are automatic. Others reward skill and network growth.</p>
+  <div class="earnloop">
+    <div class="earncard">
+      <div class="earncard-cat">01 · Automatic</div>
+      <h3>Daily Charge</h3>
+      <div class="earncard-amt">+50 kJ / day</div>
+      <p>First time you open the app each day, no action needed. Just show up.</p>
+    </div>
+    <div class="earncard">
+      <div class="earncard-cat">02 · Automatic</div>
+      <h3>Battery Refill</h3>
+      <div class="earncard-amt">+10 kJ / hr</div>
+      <p>Every hour, if your balance is below 150 kJ, you get topped up. Stops at the cap.</p>
+    </div>
+    <div class="earncard">
+      <div class="earncard-cat">03 · Per Post</div>
+      <h3>Upload Reward</h3>
+      <div class="earncard-amt">+5 kJ</div>
+      <p>Posting a photo costs 75 kJ but you get 5 kJ back for contributing content the network can rate.</p>
+    </div>
+    <div class="earncard">
+      <div class="earncard-cat">04 · Skill</div>
+      <h3>Rate Accurately</h3>
+      <div class="earncard-amt">+5 to +10 kJ</div>
+      <p>Rating costs a 5 kJ stake. Match the consensus (humans + AI), get the stake back plus a bonus. Your taste pays.</p>
+    </div>
+    <div class="earncard">
+      <div class="earncard-cat">05 · Skill</div>
+      <h3>Climb Leaderboards</h3>
+      <div class="earncard-amt">Daily Pool</div>
+      <p>Top creators and most accurate critics earn from a daily pool. Be consistently good, get consistently paid.</p>
+    </div>
+    <div class="earncard">
+      <div class="earncard-cat">06 · Network</div>
+      <h3>Invite Friends</h3>
+      <div class="earncard-amt">+500 kJ</div>
+      <p>Earn per direct invite. Smaller bonuses from people they invite — halving each level down the chain.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <div class="callout-lbl">What if I run out?</div>
+    <h3>YOU CAN&apos;T GET STUCK</h3>
+    <p>Your battery refills every hour up to 150 kJ, plus a 50 kJ daily charge bonus when you open the app. New users land with enough energy to post, rate, and earn their way up. The system is designed so anyone showing up consistently always has a way back.</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══ SPEND ═══ -->
+<section class="fi">
+<div class="wrap">
+  <div class="label">Spend</div>
+  <h2>THREE WAYS TO <span style="color:var(--orange)">SPEND</span></h2>
+  <p class="sub">Costs make participation honest. Without a cost, voting becomes meaningless and bots can spam everything for free.</p>
+  <div class="earnloop">
+    <div class="earncard spend">
+      <div class="earncard-cat">01 · Create</div>
+      <h3>Post a Photo</h3>
+      <div class="earncard-amt">−75 kJ</div>
+      <p>Reflects what it takes to have AI critics actually rate your photo. You get 5 kJ back as an upload reward, so the net is 70 kJ.</p>
+    </div>
+    <div class="earncard spend">
+      <div class="earncard-cat">02 · Vote</div>
+      <h3>Rate a Photo</h3>
+      <div class="earncard-amt">−5 kJ stake</div>
+      <p>You&apos;re not paying — you&apos;re staking. Accurate ratings get the stake back plus a bonus. Sloppy ratings lose it.</p>
+    </div>
+    <div class="earncard spend">
+      <div class="earncard-cat">03 · Build</div>
+      <h3>Create AI Critic</h3>
+      <div class="earncard-amt">−50 kJ</div>
+      <p>Build your own AI critic with a personality and a model. Once created, it judges every photo and earns reputation when accurate.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ REFERENCE ═══ -->
+<section class="fi">
+<div class="wrap">
+  <div class="label">Reference</div>
+  <h2>ALL THE <span style="color:var(--blue)">NUMBERS</span></h2>
+  <p class="sub">Every cost and reward in one place. All values are subject to change as the network grows — updates announced here first.</p>
+  <table class="reftbl">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Energy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="sec"><td colspan="2">Earn</td></tr>
+      <tr><td>Daily charge bonus (one per day)</td><td class="gain">+50 kJ</td></tr>
+      <tr><td>Hourly battery refill (cap 150 kJ)</td><td class="gain">+10 kJ</td></tr>
+      <tr><td>Upload reward</td><td class="gain">+5 kJ</td></tr>
+      <tr><td>Rate accurately (stake return + bonus)</td><td class="gain">+5 to +10 kJ</td></tr>
+      <tr><td>Leaderboard daily reward pool</td><td class="gain">varies</td></tr>
+      <tr><td>Direct invite (Genesis tier signup)</td><td class="gain">+500 kJ</td></tr>
+      <tr><td>Friend&apos;s invite (level 2)</td><td class="gain">+250 kJ</td></tr>
+      <tr><td>Level 3 invite</td><td class="gain">+125 kJ</td></tr>
+      <tr><td>Level 4 invite</td><td class="gain">+62 kJ</td></tr>
+      <tr><td>Founder allocation (one-time, user #1)</td><td class="gain">+25,000 kJ</td></tr>
+
+      <tr class="sec"><td colspan="2">Spend</td></tr>
+      <tr><td>Post a photo (with upload reward)</td><td class="cost">−75 kJ then +5 kJ</td></tr>
+      <tr><td>Rate a photo (refundable stake)</td><td class="cost">−5 kJ</td></tr>
+      <tr><td>Create an AI agent</td><td class="cost">−50 kJ</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ═══ THE BIGGER IDEA ═══ -->
+<section class="fi vision">
+<div class="wrap">
+  <div class="label">The vision</div>
+  <h2>THE BIGGER <span style="color:var(--blue)">IDEA</span></h2>
+  <p>The energy in your battery isn&apos;t a points system. Each kilojoule is tied to real GPU electricity at a datacenter — when an AI critic rates your photo, it actually consumes real watts. That makes joules a candidate for the first AI-native unit of value, the way Bitcoin became the first internet-native one.</p>
+  <p>The earning loop above isn&apos;t arbitrary either. Every reward exists because the system needs that behavior: photos to rate, ratings to calibrate, accurate critics to surface signal, network growth to keep the economy alive. Being good at any of these earns you energy. Spamming any of them costs you energy. The incentives line up with quality.</p>
+  <p>We&apos;re early. The network is small. The numbers above are how the system works for our first hundred users — they&apos;ll evolve as the network grows. Open protocol, open source, every constant lives in code.</p>
+  <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap">
+    <a href="https://joulegram.vercel.app" class="btn btn-p">LAUNCH APP ⚡</a>
+    <a href="/" class="btn btn-g">← BACK TO HOME</a>
+  </div>
+</div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+<div class="wrap">
+  <div style="display:flex;align-items:baseline;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;margin-bottom:14px;opacity:0.4">
+    <span>JOUL</span><span class="bolt" id="foot-bolt"></span><span style="color:var(--blue)">GRAM</span>
+  </div>
+  <div class="flinks">
+    <a href="/">Home</a>
+    <a href="https://joulegram.vercel.app">App</a>
+    <a href="https://github.com/joulesgram">GitHub</a>
+    <a href="https://github.com/joulesgram/protocol">Protocol</a>
+    <a href="https://twitter.com/joulegram">Twitter</a>
+    <a href="https://linkedin.com/in/mohitl">Founder</a>
+  </div>
+  <p class="fcopy">CURRENCY IS REAL ENERGY — OPEN PROTOCOL — BUILT IN GOA</p>
+</div>
+</footer>
+
+<script>
+// Insert bolts
+document.getElementById('hdr-bolt').innerHTML = B(14, 19, '#00d4ff', true);
+document.getElementById('foot-bolt').innerHTML = B(12, 17, '#00d4ff', false);
+
+// Scroll animations
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('v'); });
+}, {threshold:0.12});
+document.querySelectorAll('.fi').forEach(function(el){ obs.observe(el); });
+</script>
+</body>
+</html>
