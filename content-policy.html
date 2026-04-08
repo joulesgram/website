@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Policy — Joulegram</title>
+<meta name="description" content="What's allowed on Joulegram and how to report content that isn't.">
+<meta property="og:title" content="Joulegram Content Policy">
+<meta property="og:description" content="Plain-language rules for what's allowed on the platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050810;--card:#0a0e18;--blue:#00d4ff;--deepblue:#0090cc;--orange:#ff8a00;--green:#00ff88;--red:#ff0050;--text:rgba(255,255,255,0.85);--muted:rgba(255,255,255,0.4);--dim:rgba(255,255,255,0.1)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bolt{display:inline-block;vertical-align:baseline}
+.bolt svg{display:block}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+section{padding:80px 0}
+.label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--blue);text-transform:uppercase;margin-bottom:12px}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,6vw,46px);letter-spacing:4px;line-height:1.05;margin-bottom:16px}
+.sub{font-size:17px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:620px}
+p{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.8;margin-top:18px;max-width:620px}
+.phdr{border-bottom:1px solid var(--dim);padding:22px 0;position:sticky;top:0;background:rgba(5,8,16,0.92);backdrop-filter:blur(8px);z-index:10}
+.phdr-inner{display:flex;justify-content:space-between;align-items:center}
+.phdr-logo{display:flex;align-items:baseline;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;text-decoration:none;color:inherit}
+.phdr-logo .bolt svg{margin:0 1px}
+.phdr-nav{display:flex;gap:22px;align-items:center}
+.phdr-nav a{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;transition:color 0.2s}
+.phdr-nav a:hover{color:var(--blue)}
+.phdr-nav a.app-cta{color:var(--blue);border:1px solid rgba(0,212,255,0.25);padding:8px 14px;border-radius:6px}
+.phdr-nav a.app-cta:hover{background:rgba(0,212,255,0.06)}
+.phero{padding:90px 0 60px;border-bottom:1px solid var(--dim)}
+.ph1{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,9vw,76px);letter-spacing:5px;line-height:1;margin-bottom:24px}
+.phsub{font-size:19px;color:rgba(255,255,255,0.6);line-height:1.65;max-width:620px}
+.rules-list{display:flex;flex-direction:column;gap:14px;margin-top:36px}
+.rule-item{background:var(--card);border:1px solid var(--dim);border-left:3px solid var(--red);border-radius:14px;padding:24px 28px}
+.rule-item h3{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;margin-bottom:8px;line-height:1.15}
+.rule-item p{font-size:14px;color:var(--muted);line-height:1.7;margin-top:0}
+.report-card{background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.18);border-radius:14px;padding:36px;margin-top:36px}
+.report-card .label{margin-bottom:8px}
+.report-card h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:14px;line-height:1.15}
+.report-card p{font-size:15px;color:rgba(255,255,255,0.65);line-height:1.75;margin-top:14px}
+.report-card a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(0,212,255,0.3);font-family:'Space Mono',monospace;font-size:14px}
+.report-card a:hover{border-color:var(--blue)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;text-decoration:none;cursor:pointer;border:none;transition:transform 0.2s,box-shadow 0.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-g{background:transparent;color:var(--blue);border:1px solid rgba(0,212,255,0.25)}
+.btn-g:hover{background:rgba(0,212,255,0.05)}
+footer{border-top:1px solid var(--dim);padding:36px 0;text-align:center}
+.flinks{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.flinks a{font-family:'Space Mono',monospace;font-size:11px;color:var(--blue);text-decoration:none;letter-spacing:1px}
+.flinks a:hover{text-decoration:underline}
+.fcopy{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.15);letter-spacing:1px}
+.fi{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}.fi.v{opacity:1;transform:translateY(0)}
+@media(max-width:640px){section{padding:60px 0}.phero{padding:56px 0 48px}.phdr-nav{gap:12px}.phdr-nav a.app-cta{padding:6px 10px;font-size:10px}.report-card{padding:24px}}
+</style>
+</head>
+<body>
+
+<script>
+function B(w,h,fill,glow){
+  var f=glow?'filter="drop-shadow(0 0 '+(h*0.08)+'px '+fill+')"':'';
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 63 87" style="display:inline-block;vertical-align:baseline;margin-bottom:-'+(h*0.02)+'px"><polygon points="40,0 14,38 30,38 8,87 55,42 35,42 58,0" fill="'+fill+'" '+f+'/></svg>';
+}
+</script>
+
+<header class="phdr">
+<div class="wrap">
+  <div class="phdr-inner">
+    <a href="/" class="phdr-logo">
+      <span style="color:#fff">JOUL</span><span class="bolt" id="hdr-bolt"></span><span style="color:var(--blue)">GRAM</span>
+    </a>
+    <nav class="phdr-nav">
+      <a href="/">Home</a>
+      <a href="/policy.html">How It Works</a>
+      <a href="https://joulegram.vercel.app" class="app-cta">Launch App ⚡</a>
+    </nav>
+  </div>
+</div>
+</header>
+
+<section class="phero">
+<div class="wrap">
+  <div class="label">Content policy</div>
+  <h1 class="ph1">WHAT'S <span style="color:var(--blue)">ALLOWED</span></h1>
+  <p class="phsub">Joulegram is a place to share photos and have them rated honestly. The rules below exist to keep it that way. Plain language, short list, enforced manually while the network is small.</p>
+</div>
+</section>
+
+<section class="fi">
+<div class="wrap">
+  <div class="label">The rules</div>
+  <h2>WHAT'S <span style="color:var(--blue)">NOT ALLOWED</span></h2>
+  <p class="sub">If you upload any of the following, your photo will be removed and your account may be suspended. The first three are zero-tolerance.</p>
+
+  <div class="rules-list">
+    <div class="rule-item">
+      <h3>Sexual content involving minors</h3>
+      <p>Zero tolerance. Immediate removal, account ban, and reporting to relevant authorities. No exceptions, no context, no appeals.</p>
+    </div>
+    <div class="rule-item">
+      <h3>Non-consensual intimate imagery</h3>
+      <p>Sharing intimate photos of someone without their consent is prohibited regardless of how the photo was originally taken or obtained. Same enforcement as above.</p>
+    </div>
+    <div class="rule-item">
+      <h3>AI deepfakes of real people without consent</h3>
+      <p>Generated or manipulated images depicting identifiable real individuals require their explicit consent. This includes celebrity deepfakes, impersonation, and any imagery designed to mislead about who appears in it.</p>
+    </div>
+    <div class="rule-item">
+      <h3>Hate speech, harassment, threats</h3>
+      <p>Content targeting people for their race, religion, gender, sexuality, disability, or any other identity. Threats of violence. Targeted harassment campaigns. Coordinated abuse.</p>
+    </div>
+    <div class="rule-item">
+      <h3>Copyrighted material you don't own</h3>
+      <p>Don't upload photos you didn't take or don't have rights to. We respect creators of every kind, including the ones who didn't sign up for this network.</p>
+    </div>
+    <div class="rule-item">
+      <h3>Spam, bots, gaming the system</h3>
+      <p>Automated posting, mass-uploading low-effort content to farm joules, creating multiple accounts to inflate ratings, or any pattern that exists to extract from the economy without contributing.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="fi">
+<div class="wrap">
+  <div class="label">Reporting</div>
+  <h2>HOW TO <span style="color:var(--blue)">REPORT</span></h2>
+  <p class="sub">If you see something that violates the rules above, tell us directly. The network is small and we read every report personally.</p>
+
+  <div class="report-card">
+    <div class="label">Email us</div>
+    <h3>HELLO@JOULEGRAM.COM</h3>
+    <p>Include the photo URL, the username of the uploader if you can see it, the rule you think was violated, and your own username so we can follow up. Response within 24 hours, usually faster.</p>
+    <p>For urgent issues involving the first three rules above, use the same email but mark the subject line <strong style="color:var(--red)">URGENT</strong>. We escalate those immediately.</p>
+  </div>
+
+  <p>Right now Joulegram is small enough that the founder reads every report personally. As the network grows we'll add automated moderation, AI content scanning, and a structured appeals process. Until then, the policy is intentionally simple: clear rules, manual review, fast response.</p>
+
+  <div style="display:flex;gap:12px;margin-top:40px;flex-wrap:wrap">
+    <a href="/" class="btn btn-g">← BACK TO HOME</a>
+    <a href="/policy.html" class="btn btn-g">HOW IT WORKS</a>
+  </div>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+  <div style="display:flex;align-items:baseline;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;margin-bottom:14px;opacity:0.4">
+    <span>JOUL</span><span class="bolt" id="foot-bolt"></span><span style="color:var(--blue)">GRAM</span>
+  </div>
+  <div class="flinks">
+    <a href="/">Home</a>
+    <a href="/policy.html">How It Works</a>
+    <a href="/thesis.html">Thesis</a>
+    <a href="/changelog.html">Changelog</a>
+    <a href="https://joulegram.vercel.app">App</a>
+    <a href="https://github.com/joulesgram">GitHub</a>
+  </div>
+  <p class="fcopy">CURRENCY IS COMPUTE — OPEN PROTOCOL — BUILT IN GOA</p>
+</div>
+</footer>
+
+<script>
+document.getElementById('hdr-bolt').innerHTML = B(14, 19, '#00d4ff', true);
+document.getElementById('foot-bolt').innerHTML = B(12, 17, '#00d4ff', false);
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('v'); });
+}, {threshold:0.12});
+document.querySelectorAll('.fi').forEach(function(el){ obs.observe(el); });
+</script>
+</body>
+</html>

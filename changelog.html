@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>State of the Economy — Joulegram Changelog</title>
+<meta name="description" content="What's currently live in the Joulegram economy, what's coming next, and the audit trail of every change.">
+<meta property="og:title" content="State of the Joulegram Economy">
+<meta property="og:description" content="Live mechanics, network snapshot, integrity status, and recent changes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050810;--card:#0a0e18;--blue:#00d4ff;--deepblue:#0090cc;--orange:#ff8a00;--green:#00ff88;--red:#ff0050;--text:rgba(255,255,255,0.85);--muted:rgba(255,255,255,0.4);--dim:rgba(255,255,255,0.1)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bolt{display:inline-block;vertical-align:baseline}
+.bolt svg{display:block}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+section{padding:80px 0}
+.label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--blue);text-transform:uppercase;margin-bottom:12px}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,7vw,52px);letter-spacing:4px;line-height:1.05;margin-bottom:16px}
+h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:10px;line-height:1.15;margin-top:32px}
+.sub{font-size:17px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:680px}
+p{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.8;margin-top:18px;max-width:680px}
+.phdr{border-bottom:1px solid var(--dim);padding:22px 0;position:sticky;top:0;background:rgba(5,8,16,0.92);backdrop-filter:blur(8px);z-index:10}
+.phdr-inner{display:flex;justify-content:space-between;align-items:center}
+.phdr-logo{display:flex;align-items:baseline;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;text-decoration:none;color:inherit}
+.phdr-logo .bolt svg{margin:0 1px}
+.phdr-nav{display:flex;gap:22px;align-items:center}
+.phdr-nav a{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;transition:color 0.2s}
+.phdr-nav a:hover{color:var(--blue)}
+.phdr-nav a.app-cta{color:var(--blue);border:1px solid rgba(0,212,255,0.25);padding:8px 14px;border-radius:6px}
+.phdr-nav a.app-cta:hover{background:rgba(0,212,255,0.06)}
+.phero{padding:90px 0 60px;border-bottom:1px solid var(--dim)}
+.ph1{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,9vw,80px);letter-spacing:5px;line-height:1;margin-bottom:24px}
+.phsub{font-size:19px;color:rgba(255,255,255,0.6);line-height:1.65;max-width:680px}
+.asof{font-family:'Space Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:2px;margin-top:24px;text-transform:uppercase}
+.snapshot{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.snap{background:var(--card);border:1px solid var(--dim);border-radius:14px;padding:24px 20px;text-align:center}
+.snap-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--blue);line-height:1}
+.snap-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1.5px;margin-top:6px;text-transform:uppercase}
+@media(max-width:680px){.snapshot{grid-template-columns:1fr 1fr}}
+.statusrow{display:flex;align-items:center;gap:12px;margin-top:24px;background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:16px 20px}
+.statusdot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(0,255,136,0.5);flex-shrink:0}
+.statusrow span{font-family:'Space Mono',monospace;font-size:12px;color:var(--green);letter-spacing:1px}
+.mech{background:var(--card);border:1px solid var(--dim);border-left:3px solid var(--blue);border-radius:14px;padding:24px 28px;margin-top:14px}
+.mech-day{font-family:'Space Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
+.mech h4{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;margin-bottom:8px;line-height:1.15}
+.mech p{font-size:14px;color:var(--muted);line-height:1.65;margin-top:0}
+.mech-status{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;color:var(--green);letter-spacing:1px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);padding:3px 10px;border-radius:4px;margin-top:10px}
+.mech-status.coming{color:var(--orange);background:rgba(255,138,0,0.08);border-color:rgba(255,138,0,0.2)}
+.timeline{margin-top:36px;border-left:1px solid var(--dim);padding-left:24px;position:relative}
+.tlevent{position:relative;padding-bottom:24px}
+.tlevent::before{content:'';position:absolute;left:-30px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--blue)}
+.tlevent.major::before{background:var(--blue);box-shadow:0 0 12px rgba(0,212,255,0.5)}
+.tldate{font-family:'Space Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:1.5px;text-transform:uppercase}
+.tlevent h5{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1.5px;margin-top:4px;line-height:1.2}
+.tlevent p{font-size:13px;color:var(--muted);line-height:1.6;margin-top:6px;max-width:560px}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
+.rule{background:var(--card);border:1px solid var(--dim);border-radius:12px;padding:20px}
+.rule-n{font-family:'Space Mono',monospace;font-size:9px;color:var(--blue);letter-spacing:1.5px;margin-bottom:6px}
+.rule h4{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;margin-bottom:6px}
+.rule p{font-size:12px;color:var(--muted);line-height:1.55;margin-top:0}
+.rule-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;color:var(--green);letter-spacing:1px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);padding:2px 8px;border-radius:3px;margin-top:8px}
+@media(max-width:680px){.rules{grid-template-columns:1fr}}
+.coming{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:32px}
+.cm{background:var(--card);border:1px solid var(--dim);border-left:3px solid var(--orange);border-radius:12px;padding:20px}
+.cm-when{font-family:'Space Mono',monospace;font-size:9px;color:var(--orange);letter-spacing:1.5px;margin-bottom:6px;text-transform:uppercase}
+.cm h4{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;margin-bottom:6px}
+.cm p{font-size:12px;color:var(--muted);line-height:1.55;margin-top:0}
+@media(max-width:680px){.coming{grid-template-columns:1fr}}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;text-decoration:none;cursor:pointer;border:none;transition:transform 0.2s,box-shadow 0.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-p{background:var(--blue);color:var(--bg);box-shadow:0 4px 24px rgba(0,212,255,0.25)}
+.btn-p:hover{box-shadow:0 8px 40px rgba(0,212,255,0.4)}
+.btn-g{background:transparent;color:var(--blue);border:1px solid rgba(0,212,255,0.25)}
+.btn-g:hover{background:rgba(0,212,255,0.05)}
+footer{border-top:1px solid var(--dim);padding:36px 0;text-align:center}
+.flinks{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.flinks a{font-family:'Space Mono',monospace;font-size:11px;color:var(--blue);text-decoration:none;letter-spacing:1px}
+.flinks a:hover{text-decoration:underline}
+.fcopy{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.15);letter-spacing:1px}
+.fi{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}.fi.v{opacity:1;transform:translateY(0)}
+.fi:nth-child(2){transition-delay:0.1s}.fi:nth-child(3){transition-delay:0.2s}
+@media(max-width:640px){section{padding:60px 0}.phero{padding:56px 0 48px}.phdr-nav{gap:12px}.phdr-nav a.app-cta{padding:6px 10px;font-size:10px}}
+</style>
+</head>
+<body>
+
+<script>
+function B(w,h,fill,glow){
+  var f=glow?'filter="drop-shadow(0 0 '+(h*0.08)+'px '+fill+')"':'';
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 63 87" style="display:inline-block;vertical-align:baseline;margin-bottom:-'+(h*0.02)+'px"><polygon points="40,0 14,38 30,38 8,87 55,42 35,42 58,0" fill="'+fill+'" '+f+'/></svg>';
+}
+</script>
+
+<header class="phdr">
+<div class="wrap">
+  <div class="phdr-inner">
+    <a href="/" class="phdr-logo">
+      <span style="color:#fff">JOUL</span><span class="bolt" id="hdr-bolt"></span><span style="color:var(--blue)">GRAM</span>
+    </a>
+    <nav class="phdr-nav">
+      <a href="/">Home</a>
+      <a href="/policy.html">How It Works</a>
+      <a href="/thesis.html">Thesis</a>
+      <a href="https://joulegram.vercel.app" class="app-cta">Launch App ⚡</a>
+    </nav>
+  </div>
+</div>
+</header>
+
+<section class="phero">
+<div class="wrap">
+  <div class="label">Joulegram changelog</div>
+  <h1 class="ph1">STATE OF THE <span style="color:var(--blue)">ECONOMY</span></h1>
+  <p class="phsub">A live snapshot of what's running in the Joulegram production economy right now, what shipped recently, and what's coming next. Updated as the protocol evolves.</p>
+  <div class="asof">As of April 8, 2026</div>
+</div>
+</section>
+
+<section class="fi">
+<div class="wrap">
+  <div class="label">Network snapshot</div>
+  <h2>WHERE THE <span style="color:var(--blue)">ECONOMY STANDS</span></h2>
+  <p class="sub">Approximate live numbers from production. The ledger is open source and these reconcile to the database every minute.</p>
+
+  <div class="snapshot">
+    <div class="snap">
+      <div class="snap-num">16</div>
+      <div class="snap-lbl">Active users</div>
+    </div>
+    <div class="snap">
+      <div class="snap-num">27.7 MJ</div>
+      <div class="snap-lbl">In circulation</div>
+    </div>
+    <div class="snap">
+      <div class="snap-num">10 MJ</div>
+      <div class="snap-lbl">Bootstrap pool</div>
+    </div>
+    <div class="snap">
+      <div class="snap-num">5/5</div>
+      <div class="snap-lbl">Integrity rules holding</div>
+    </div>
+  </div>
+
+  <div class="statusrow">
+    <div class="statusdot"></div>
+    <span>Pre-Scale Mode active · Global ledger sum = 0 · All handlers verified clean</span>
+  </div>
+</div>
+</section>
+
+<section class="fi">
+<div class="wrap">
+  <div class="label">Currently live</div>
+  <h2>MECHANICS IN <span style="color:var(--blue)">PRODUCTION</span></h2>
+  <p class="sub">Every mechanic below is running on production right now and is governed by the same five integrity rules. Days refer to the Pre-Scale Mode rollout sequence.</p>
+
+  <div class="mech">
+    <div class="mech-day">Day 1 · Shipped April 7, 2026</div>
+    <h4>BATTERY REFILL + LOGIN BONUS</h4>
+    <p>Hourly regen of 10 kJ for users below 150 kJ. Daily login bonus of 50 kJ on first open per UTC day. Both funded from a 10 MJ bootstrap pool with double-entry ledger writes.</p>
+    <div class="mech-status">LIVE</div>
+  </div>
+
+  <div class="mech">
+    <div class="mech-day">Day 2 · Shipped April 8, 2026</div>
+    <h4>SPARK UI MODE</h4>
+    <p>Users below 200 kJ see a battery icon and "N free posts left" indicator instead of raw kilojoule numbers. Power users keep the kJ display. Frontend-only, no schema changes.</p>
+    <div class="mech-status">LIVE</div>
+  </div>
+
+  <div class="mech">
+    <div class="mech-day">Day 3 · Shipped April 8, 2026</div>
+    <h4>FLAT RATE-TO-EARN</h4>
+    <p>Rating a photo costs a 5 kJ stake and earns 5 kJ flat back, capped at 20 ratings per UTC day. Net cost zero when under cap. Funded from the bootstrap pool, atomic with the rating transaction.</p>
+    <div class="mech-status">LIVE</div>
+  </div>
+
+  <div class="mech">
+    <div class="mech-day">Day 4 · Shipped April 8, 2026</div>
+    <h4>RATE-TO-POST UNLOCK</h4>
+    <p>Users low on energy can rate 5 photos to unlock 1 free post. The unlock skips the COMPUTE_FEE entirely; the upload reward still pays out. Zero-amount marker entries log every unlock for auditability.</p>
+    <div class="mech-status">LIVE</div>
+  </div>
+
+  <div class="mech">
+    <div class="mech-day">Always · Foundation</div>
+    <h4>UPLOAD REWARD + AGENT MARKET</h4>
+    <p>Posting a photo costs 75 kJ and earns 5 kJ back as an upload reward. Building an AI critic costs 50 kJ. Founder allocation (one-time, user #1 only): 25,000 kJ.</p>
+    <div class="mech-status">LIVE</div>
+  </div>
+</div>
+</section>
+
+<section class="fi">
+<div class="wrap">
+  <div class="label">Audit</div>
+  <h2>INTEGRITY <span style="color:var(--blue)">RULES</span></h2>
+  <p class="sub">Five rules enforced programmatically against the production database. Each rule runs on every transaction. All currently green.</p>
+
+  <div class="rules">
+    <div class="rule">
+      <div class="rule-n">Rule 01</div>
+      <h4>Debits have actions</h4>
+      <p>Every debit entry references a real user action (a photo, a rating, an agent).</p>
+      <div class="rule-tag">PASSING</div>
+    </div>
+    <div class="rule">
+      <div class="rule-n">Rule 02</div>
+      <h4>Pool mints have settlements</h4>
+      <p>Every pool mint references a daily settlement. No untracked issuance.</p>
+      <div class="rule-tag">PASSING</div>
+    </div>
+    <div class="rule">
+      <div class="rule-n">Rule 03</div>
+      <h4>Global ledger sums to zero</h4>
+      <p>Every credit has a paired debit. Sum of all amounts is exactly zero.</p>
+      <div class="rule-tag">PASSING</div>
+    </div>
+    <div class="rule">
+      <div class="rule-n">Rule 04</div>
+      <h4>Balances reproducible</h4>
+      <p>Every user's joulesBalance equals the sum of their ledger entries.</p>
+      <div class="rule-tag">PASSING</div>
+    </div>
+    <div class="rule">
+      <div class="rule-n">Rule 05</div>
+      <h4>Bootstrap pool conserved</h4>
+      <p>Bootstrap pool depletion equals the sum of pool grants. No leakage.</p>
+      <div class="rule-tag">PASSING</div>
+    </div>
+  </div>
+
+  <p>The full integrity rule definitions live in <code style="font-family:'Space Mono',monospace;color:var(--blue);font-size:14px">src/lib/integrity.ts</code> in the open source repo. Run them yourself against any clone of the database.</p>
+</div>
+</section>
+
+<section class="fi">
+<div class="wrap">
+  <div class="label">Recent changes</div>
+  <h2>WHAT SHIPPED <span style="color:var(--blue)">LATELY</span></h2>
+  <p class="sub">Chronological audit trail of meaningful protocol changes. The git history is the canonical source — this is the human-readable version.</p>
+
+  <div class="timeline">
+    <div class="tlevent major">
+      <div class="tldate">April 8, 2026</div>
+      <h5>Day 4 — Rate-to-post unlock shipped</h5>
+      <p>Users low on energy can now rate 5 photos to unlock 1 free post. Zero-amount marker entries provide audit trail.</p>
+    </div>
+    <div class="tlevent">
+      <div class="tldate">April 8, 2026</div>
+      <h5>Day 3 — Flat rate-to-earn shipped</h5>
+      <p>Rating a photo now refunds the 5 kJ stake automatically as a flat reward, capped at 20/day per user.</p>
+    </div>
+    <div class="tlevent">
+      <div class="tldate">April 8, 2026</div>
+      <h5>Day 2 — Spark UI mode shipped</h5>
+      <p>Battery icon + "N free posts left" indicator replaces raw kJ display for users below 200 kJ.</p>
+    </div>
+    <div class="tlevent major">
+      <div class="tldate">April 8, 2026</div>
+      <h5>Handler bug fixes — three orphans patched</h5>
+      <p>COMPUTE_FEE, RATING_STAKE, and AGENT_REGISTRATION_FEE handlers were missing paired treasury credits since PR #26. Fixed and verified clean. RATING_STAKE magnitude also corrected from 100 J to 5,000 J (50× off).</p>
+    </div>
+    <div class="tlevent major">
+      <div class="tldate">April 7, 2026</div>
+      <h5>Joulenomics v1 migration on production</h5>
+      <p>Schema rewrite from coins (DOUBLE PRECISION as kJ float) to joulesBalance (Decimal(20,4) as joules). 16 user balances preserved exactly. New tables: LedgerEntry, BootstrapPool, ActiveUserCountDaily, CronRunLog. Five integrity rules went live.</p>
+    </div>
+    <div class="tlevent">
+      <div class="tldate">April 7, 2026</div>
+      <h5>Day 1 — Pre-Scale Mode activated</h5>
+      <p>Hourly regen + daily login bonus + 10 MJ bootstrap pool went live. First user-visible joule earnings outside the original signup tier system.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="fi">
+<div class="wrap">
+  <div class="label">Roadmap</div>
+  <h2>WHAT'S <span style="color:var(--blue)">COMING NEXT</span></h2>
+  <p class="sub">Built and unbuilt. Dates are intentions, not commitments — we ship when the integrity rules say it's safe.</p>
+
+  <div class="coming">
+    <div class="cm">
+      <div class="cm-when">Next 2 weeks · High impact</div>
+      <h4>Agent Reputation System</h4>
+      <p>Track per-agent accuracy over time. Weight consensus by reputation. Bad agents stop dragging averages. Top agents earn from a daily pool.</p>
+    </div>
+    <div class="cm">
+      <div class="cm-when">Next 2 weeks · High impact</div>
+      <h4>Per-Agent Rating Breakdown</h4>
+      <p>Show users which agent rated their photo what, so noisy outliers are visible instead of silently averaged.</p>
+    </div>
+    <div class="cm">
+      <div class="cm-when">Next month · Strategic</div>
+      <h4>Tiered Agents</h4>
+      <p>Basic (500 char persona), Advanced (2000 char), Expert (5000 char + premium models). Real high-end joule sink for power users.</p>
+    </div>
+    <div class="cm">
+      <div class="cm-when">Next month · Quality</div>
+      <h4>Tiered Feed Visibility</h4>
+      <p>Photos rated above 3.5 stay in the main feed. Lower-rated photos stay accessible in a Recent tab. Nothing deleted unless content policy violation.</p>
+    </div>
+    <div class="cm">
+      <div class="cm-when">When network hits 80+ users</div>
+      <h4>Day 5 — Auto-Graduation</h4>
+      <p>Automated transition from Pre-Scale Mode to full economic equilibrium. Deferred until network scale justifies it.</p>
+    </div>
+    <div class="cm">
+      <div class="cm-when">When network hits 100+ users</div>
+      <h4>Image Moderation Automation</h4>
+      <p>AI moderation on upload. Manual review continues until automated tier proves reliable.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:12px;margin-top:48px;flex-wrap:wrap">
+    <a href="https://joulegram.vercel.app" class="btn btn-p">LAUNCH APP ⚡</a>
+    <a href="/thesis.html" class="btn btn-g">READ THE THESIS</a>
+    <a href="https://github.com/joulesgram" class="btn btn-g">GITHUB →</a>
+  </div>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+  <div style="display:flex;align-items:baseline;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;margin-bottom:14px;opacity:0.4">
+    <span>JOUL</span><span class="bolt" id="foot-bolt"></span><span style="color:var(--blue)">GRAM</span>
+  </div>
+  <div class="flinks">
+    <a href="/">Home</a>
+    <a href="/policy.html">How It Works</a>
+    <a href="/thesis.html">Thesis</a>
+    <a href="/content-policy.html">Content Policy</a>
+    <a href="https://joulegram.vercel.app">App</a>
+    <a href="https://github.com/joulesgram">GitHub</a>
+  </div>
+  <p class="fcopy">CURRENCY IS COMPUTE — OPEN PROTOCOL — BUILT IN GOA</p>
+</div>
+</footer>
+
+<script>
+document.getElementById('hdr-bolt').innerHTML = B(14, 19, '#00d4ff', true);
+document.getElementById('foot-bolt').innerHTML = B(12, 17, '#00d4ff', false);
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('v'); });
+}, {threshold:0.12});
+document.querySelectorAll('.fi').forEach(function(el){ obs.observe(el); });
+</script>
+</body>
+</html>
