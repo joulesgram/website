@@ -1,1 +1,669 @@
-{"type":"error","error":{"type":"not_found_error","message":"File not found in container: /mnt/user-data/outputs/joulenomics-thesis.html","details":{"error_visibility":"user_facing"}},"request_id":"req_011CZrHsTA79nb9sjvvJPyGt"}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whitepaper — Joulegram</title>
+<meta name="description" content="Joulegram Whitepaper v1.0 — A Physics-Grounded Network for Verifiable AI Judgment.">
+<meta property="og:title" content="Joulegram Whitepaper v1.0 (Public Draft)">
+<meta property="og:description" content="Every joule on the network must trace to either a real inference event or a qualifying protocol-compute expense. Section 0 is the constitution.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050810;--card:#0a0e18;--blue:#00d4ff;--deepblue:#0090cc;--orange:#ff8a00;--green:#00ff88;--red:#ff0050;--text:rgba(255,255,255,0.85);--muted:rgba(255,255,255,0.4);--dim:rgba(255,255,255,0.1)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bolt{display:inline-block;vertical-align:baseline}
+.bolt svg{display:block}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+.wrap-wide{max-width:980px;margin:0 auto;padding:0 24px}
+section{padding:80px 0}
+.label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--blue);text-transform:uppercase;margin-bottom:12px}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,6vw,46px);letter-spacing:4px;line-height:1.05;margin-bottom:16px}
+h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.6vw,28px);letter-spacing:2px;line-height:1.15;margin-top:42px;margin-bottom:14px;color:#fff}
+h4{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--blue);margin-top:32px;margin-bottom:12px}
+.sub{font-size:17px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:720px}
+p{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.85;margin-top:18px;max-width:720px}
+ul,ol{margin-top:18px;padding-left:24px;color:rgba(255,255,255,0.7);max-width:720px}
+li{font-size:16px;line-height:1.85;margin-bottom:8px}
+strong{color:#fff;font-weight:600}
+em{color:rgba(255,255,255,0.85);font-style:italic}
+a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(0,212,255,0.25);transition:border-color 0.2s}
+a:hover{border-color:var(--blue)}
+code{font-family:'Space Mono',monospace;font-size:13px;background:rgba(0,212,255,0.08);color:var(--blue);padding:2px 6px;border-radius:4px}
+pre{background:var(--card);border:1px solid var(--dim);border-left:3px solid var(--blue);border-radius:10px;padding:24px 28px;margin-top:24px;overflow-x:auto;font-family:'Space Mono',monospace;font-size:13px;line-height:1.7;color:rgba(255,255,255,0.8)}
+pre code{background:none;color:inherit;padding:0;border-radius:0}
+blockquote{border-left:3px solid var(--blue);padding:18px 28px;margin-top:24px;background:rgba(0,212,255,0.04);border-radius:0 10px 10px 0;font-size:17px;line-height:1.7;color:rgba(255,255,255,0.9);max-width:720px}
+blockquote p:first-child{margin-top:0}
+blockquote strong{color:var(--blue)}
+table{width:100%;max-width:820px;border-collapse:collapse;margin-top:24px;font-size:14px}
+th{font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);text-align:left;padding:14px 16px;border-bottom:1px solid rgba(0,212,255,0.25);background:rgba(0,212,255,0.04)}
+td{padding:14px 16px;border-bottom:1px solid var(--dim);color:rgba(255,255,255,0.7);line-height:1.6;vertical-align:top}
+tr:hover td{background:rgba(255,255,255,0.02)}
+hr{border:none;border-top:1px solid var(--dim);margin:48px 0}
+
+.phdr{border-bottom:1px solid var(--dim);padding:22px 0;position:sticky;top:0;background:rgba(5,8,16,0.92);backdrop-filter:blur(8px);z-index:10}
+.phdr-inner{display:flex;justify-content:space-between;align-items:center}
+.phdr-logo{display:flex;align-items:baseline;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;text-decoration:none;color:inherit;border:none}
+.phdr-logo .bolt svg{margin:0 1px}
+.phdr-nav{display:flex;gap:22px;align-items:center}
+.phdr-nav a{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;transition:color 0.2s;border:none}
+.phdr-nav a:hover{color:var(--blue)}
+.phdr-nav a.app-cta{color:var(--blue);border:1px solid rgba(0,212,255,0.25);padding:8px 14px;border-radius:6px}
+.phdr-nav a.app-cta:hover{background:rgba(0,212,255,0.06)}
+
+.phero{padding:90px 0 60px;border-bottom:1px solid var(--dim)}
+.status-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);background:rgba(255,138,0,0.08);border:1px solid rgba(255,138,0,0.3);padding:8px 14px;border-radius:20px;margin-bottom:24px}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.ph1{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,9vw,84px);letter-spacing:5px;line-height:1;margin-bottom:24px}
+.ph1-line2{display:block;color:var(--blue);font-size:0.6em;letter-spacing:6px;margin-top:14px}
+.phsub{font-size:19px;color:rgba(255,255,255,0.6);line-height:1.65;max-width:680px}
+.meta-block{display:flex;flex-wrap:wrap;gap:24px;margin-top:36px;padding-top:24px;border-top:1px solid var(--dim);font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.meta-block strong{color:var(--blue);font-weight:400;margin-right:6px}
+
+.toc{background:var(--card);border:1px solid var(--dim);border-radius:14px;padding:32px;margin-top:48px}
+.toc-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--blue);text-transform:uppercase;margin-bottom:18px}
+.toc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 24px}
+.toc-grid a{font-size:13px;color:rgba(255,255,255,0.65);text-decoration:none;border:none;padding:6px 0;transition:color 0.2s;font-family:'DM Sans',sans-serif}
+.toc-grid a:hover{color:var(--blue)}
+.toc-grid a strong{font-family:'Space Mono',monospace;font-size:11px;color:var(--blue);margin-right:8px;display:inline-block;width:24px}
+
+.constitution{background:linear-gradient(135deg,rgba(0,212,255,0.08),rgba(0,144,204,0.04));border:1px solid rgba(0,212,255,0.3);border-left:4px solid var(--blue);border-radius:14px;padding:48px 56px;margin-top:48px;position:relative}
+.constitution::before{content:"§5";position:absolute;top:24px;right:32px;font-family:'Space Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:2px;opacity:0.5}
+.constitution-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--blue);text-transform:uppercase;margin-bottom:14px}
+.constitution h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,38px);letter-spacing:3px;color:#fff;margin:0 0 24px 0}
+.constitution-text{font-size:18px;line-height:1.75;color:rgba(255,255,255,0.92);font-style:italic}
+.constitution-text strong{color:var(--blue);font-style:normal;font-weight:600}
+.constitution-footer{font-size:13px;color:rgba(255,255,255,0.5);margin-top:24px;padding-top:20px;border-top:1px solid rgba(0,212,255,0.15);font-family:'Space Mono',monospace;letter-spacing:1px}
+
+.part-divider{margin-top:80px;padding-top:60px;border-top:1px solid var(--dim)}
+.part-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--orange);text-transform:uppercase;margin-bottom:8px}
+.part-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,42px);letter-spacing:4px;color:#fff;line-height:1.1;margin-bottom:48px}
+
+.section-num{font-family:'Space Mono',monospace;font-size:13px;color:var(--blue);letter-spacing:2px;margin-bottom:6px;display:block}
+
+.callout{background:var(--card);border:1px solid var(--dim);border-left:3px solid var(--orange);border-radius:14px;padding:28px 32px;margin-top:28px}
+.callout-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--orange);text-transform:uppercase;margin-bottom:10px}
+.callout p{margin-top:0;font-size:15px;color:rgba(255,255,255,0.8)}
+
+.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin-top:20px;padding:24px 28px;background:rgba(0,212,255,0.03);border:1px solid rgba(0,212,255,0.12);border-radius:10px;max-width:720px}
+.kv dt{font-family:'Space Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:1.5px;text-transform:uppercase;padding-top:2px}
+.kv dd{font-size:14px;color:rgba(255,255,255,0.85);line-height:1.6}
+.kv dd strong{color:#fff}
+
+.scenario-table th{color:var(--orange)}
+.scenario-table td:last-child{color:var(--blue);font-weight:500}
+
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.three-col .layer{background:var(--card);border:1px solid var(--dim);border-radius:14px;padding:24px}
+.three-col .layer h4{margin-top:0;color:var(--blue)}
+.three-col .layer p{font-size:14px;line-height:1.7;margin-top:10px;color:rgba(255,255,255,0.65)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;text-decoration:none;cursor:pointer;border:none;transition:transform 0.2s,box-shadow 0.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-g{background:transparent;color:var(--blue);border:1px solid rgba(0,212,255,0.25)}
+.btn-g:hover{background:rgba(0,212,255,0.05)}
+
+footer{border-top:1px solid var(--dim);padding:36px 0;text-align:center;margin-top:80px}
+.flinks{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.flinks a{font-family:'Space Mono',monospace;font-size:11px;color:var(--blue);text-decoration:none;letter-spacing:1px;border:none}
+.flinks a:hover{text-decoration:underline}
+.fcopy{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.15);letter-spacing:1px}
+
+.fi{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fi.v{opacity:1;transform:translateY(0)}
+
+@media(max-width:760px){
+  section{padding:60px 0}
+  .phero{padding:56px 0 48px}
+  .phdr-nav{gap:12px}
+  .phdr-nav a:not(.app-cta){display:none}
+  .phdr-nav a.app-cta{padding:6px 10px;font-size:10px}
+  .toc-grid{grid-template-columns:1fr}
+  .constitution{padding:32px 28px}
+  .three-col{grid-template-columns:1fr}
+  table{font-size:12px}
+  th,td{padding:10px 12px}
+}
+</style>
+</head>
+<body>
+
+<header class="phdr">
+<div class="wrap-wide">
+  <div class="phdr-inner">
+    <a href="/" class="phdr-logo">
+      <span style="color:#fff">JOUL</span><span class="bolt" id="hdr-bolt"></span><span style="color:var(--blue)">GRAM</span>
+    </a>
+    <nav class="phdr-nav">
+      <a href="/">Home</a>
+      <a href="/thesis.html">Thesis</a>
+      <a href="/changelog.html">Changelog</a>
+      <a href="https://joulegram.vercel.app" class="app-cta">Launch App ⚡</a>
+    </nav>
+  </div>
+</div>
+</header>
+
+<section class="phero">
+<div class="wrap">
+  <div class="status-badge"><span class="status-dot"></span>Public Draft · v1.0 · April 9, 2026</div>
+  <h1 class="ph1">WHITE<span style="color:var(--blue)">PAPER</span><span class="ph1-line2">A PHYSICS-GROUNDED NETWORK<br>FOR VERIFIABLE AI JUDGMENT</span></h1>
+  <p class="phsub">Joulegram begins as a photo app. Its deeper purpose is larger: to establish a new primitive for the internet — verifiable AI judgment. Every meaningful AI decision should produce a receipt. Every receipt should trace to real compute. Every joule on the network must follow the constitutional rule below, or it does not exist.</p>
+
+  <div class="meta-block">
+    <span><strong>Author</strong> Mohit Lalvani</span>
+    <span><strong>License</strong> CC-BY-4.0</span>
+    <span><strong>Canonical</strong> github.com/joulesgram/protocol</span>
+  </div>
+
+  <div class="toc">
+    <div class="toc-label">Table of contents</div>
+    <div class="toc-grid">
+      <a href="#part-1"><strong>I.</strong>Why Joulegram exists</a>
+      <a href="#part-2"><strong>II.</strong>The protocol</a>
+      <a href="#part-3"><strong>III.</strong>Joulenomics</a>
+      <a href="#part-4"><strong>IV.</strong>The five-phase roadmap</a>
+      <a href="#part-5"><strong>V.</strong>The trillion-dollar scenario</a>
+      <a href="#part-6"><strong>VI.</strong>Honesty and limits</a>
+      <a href="#constitution"><strong>§5</strong>The constitutional rule</a>
+      <a href="#receipt"><strong>§6</strong>The receipt</a>
+      <a href="#unit"><strong>§9</strong>The unit and the peg</a>
+      <a href="#evolution"><strong>§10</strong>L0 → L4 evolution</a>
+      <a href="#cohorts"><strong>§15</strong>Early user cohorts</a>
+      <a href="#trp"><strong>§18</strong>Treasury Receipt Protocol</a>
+      <a href="#valuation"><strong>§28</strong>Network valuation</a>
+      <a href="#prior-art"><strong>§34</strong>Comparison to prior art</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ABSTRACT -->
+<section class="fi">
+<div class="wrap">
+  <div class="label">Abstract</div>
+  <h2>WHAT THIS DOCUMENT IS</h2>
+  <p>Joulegram begins as a photo app. Its deeper purpose is larger: to establish a new primitive for the internet — <strong>verifiable AI judgment</strong>.</p>
+  <p>Bitcoin grounded money in physics. Ethereum grounded computation in physics. Joulegram grounds AI judgment in physics. Every meaningful AI judgment should be able to produce a receipt: which model ran, which version, what input was evaluated, what output was produced, what energy-equivalent accounting was consumed, and how that judgment can be independently audited later. This framework is <strong>JAP — the Joulegram Agent Protocol</strong>.</p>
+  <p>The native unit of the network is the <strong>joule</strong>. Every joule on the network must trace to either a real inference event or a qualifying protocol-compute expense, paid for in real fiat by a real operator or treasury. There are no joules from any other source. This single rule cannot be amended.</p>
+  <p>The economic model is built on five convictions: that founders who create primitives deserve to be honored at genesis; that early users who take adoption risk deserve asymmetric upside; that active contribution must outrank dormant seniority; that growth dilutes passive concentration; and that every claim eventually reduces to a receipt, a settlement artifact, and a ledger entry. <strong>Auditability beats narrative.</strong></p>
+</div>
+</section>
+
+<!-- PART I -->
+<section class="fi" id="part-1">
+<div class="wrap">
+  <div class="part-divider">
+    <div class="part-label">Part I</div>
+    <h2 class="part-title">WHY JOULEGRAM<br>EXISTS</h2>
+  </div>
+
+  <span class="section-num">§1</span>
+  <h3>THE HONEST-JUDGMENT GAP</h3>
+  <p>The internet has abundance of opinion but scarcity of honest judgment. A like is not a verdict. A comment is not a benchmark. Most platforms optimize for social signaling, not truth. If someone wants to know whether a photo is actually good, whether a piece of code is actually strong, whether an AI recommendation is actually reliable — existing products do not provide a structured, auditable answer.</p>
+
+  <span class="section-num">§2</span>
+  <h3>THE AI ACCOUNTABILITY GAP</h3>
+  <p>At the same time, AI is increasingly making decisions that matter. Models help decide what people see, what gets flagged, what gets promoted, what gets approved, what gets rejected, and what gets trusted. Loan approvals. Medical diagnoses. Content moderation. Resume screening. Insurance underwriting. Fraud detection. Criminal risk scores. Code review verdicts. Drug-discovery candidate filtering. Legal citation lookups.</p>
+  <p>In most systems the audit trail is weak. Users are asked to trust a provider's logs, trust a vendor's versioning, and trust internal accounting they cannot independently inspect. The vendor can change those logs. The vendor can lose them. The vendor can be wrong about its own model and nobody can prove them wrong because there is no independent record.</p>
+  <p>If AI is going to influence decisions tied to money, law, medicine, media, software, and identity, then AI judgment needs stronger structure than a black-box API response. The gap between <em>AI is everywhere</em> and <em>AI is auditable</em> is where the next decade of tech policy, litigation, and platform risk lives.</p>
+  <p><strong>That gap is a trillion-dollar problem. Joulegram exists to close it.</strong></p>
+
+  <span class="section-num">§3</span>
+  <h3>THE PATTERN BITCOIN AND ETHEREUM ESTABLISHED</h3>
+  <p><strong>Bitcoin grounded money in physics.</strong> Every coin backed by real electricity burned on real hardware doing real work. The work was useless (computing hashes), but the scarcity it created was real, because the energy cost was unfakeable.</p>
+  <p><strong>Ethereum grounded computation in physics.</strong> Same insight, but the work was no longer useless — every smart contract was real computation paid for in real energy. People laughed in 2014. Twelve years later it settles trillions of dollars a year.</p>
+  <p><strong>Joulegram grounds AI judgment in physics.</strong> Every inference is a measured energy event that produces a signed receipt. The work is the most useful compute work humans have ever done — it is the protocol layer for AI accountability.</p>
+
+  <span class="section-num">§4</span>
+  <h3>THE WEDGE: A PRODUCT PEOPLE ACTUALLY WANT</h3>
+  <p>The first job of a new protocol is not to sound grand. It is to get used.</p>
+  <p>Photographers want what the product offers: a more honest answer than likes can provide. The app creates a daily loop around posting, judging, comparing, ranking, and improving. That consumer loop bootstraps the first live economy and the first body of receipted judgments.</p>
+  <p>Once that works, the same underlying architecture extends into code review, content moderation, legal analysis, medical review, drug discovery, and other high-stakes domains where AI decisions need to be inspected, trusted, challenged, and proven.</p>
+  <blockquote><p><strong>JAP only succeeds if there are users.</strong> The architecture is designed accordingly — the user is the hero, the founder is the steward, the protocol is the substrate.</p></blockquote>
+</div>
+</section>
+
+<!-- PART II -->
+<section class="fi" id="part-2">
+<div class="wrap">
+  <div class="part-divider">
+    <div class="part-label">Part II</div>
+    <h2 class="part-title">THE PROTOCOL</h2>
+  </div>
+
+  <div class="constitution" id="constitution">
+    <div class="constitution-label">§5 — The constitutional rule</div>
+    <h3>THE SINGLE RULE</h3>
+    <div class="constitution-text">
+      <p>Every joule that exists must trace to either <strong>(a)</strong> a JAP receipt for a real inference event, or <strong>(b)</strong> a Treasury receipt for a qualifying protocol-compute or infrastructure expense.</p>
+      <p style="margin-top:14px">Both kinds of receipt must trace to a real-world bill paid to a model provider, GPU operator, or infrastructure provider.</p>
+    </div>
+    <div class="constitution-footer">No exception for the founder. No exception for the treasury. No exception for early users. No exception for investors. This rule cannot be amended. Every other section is mechanism in service of this one.</div>
+  </div>
+
+  <span class="section-num" id="receipt">§6</span>
+  <h3>THE RECEIPT</h3>
+  <p>A JAP receipt is a signed JSON record of a single AI inference event. It commits to everything that has to be cryptographically true about that event:</p>
+<pre><code>{
+  "receipt_version":    "jap_v0.1",
+  "request_id":         "req_abc123",
+  "model_id":           "claude-sonnet-4-20250514",
+  "model_version":      "2026.03.14",
+  "input_hash":         "sha256:7a9f...c2e1",
+  "output_hash":        "sha256:4b21...9d8a",
+  "tokens_in":          1247,
+  "tokens_out":         389,
+  "energy_kj":          40.9,
+  "energy_attestation": "L0",
+  "timestamp":          "2026-04-08T14:23:11.142Z",
+  "operator_sig":       "0xa9c4...e7b3",
+  "provider_sig":       null,
+  "merkle_epoch":       "2026-04-08"
+}</code></pre>
+  <p>Every field is non-optional. Every field is cryptographically meaningful.</p>
+
+  <span class="section-num">§7</span>
+  <h3>VERIFICATION BY COMMITMENT, NOT REPLAY</h3>
+  <p>Large language models are not idempotent. The same input prompt sent to the same model can produce different output tokens on different runs, due to temperature, sampling, batch effects, floating-point indeterminism, and provider-side updates.</p>
+  <p>JAP does not verify by replay. JAP verifies by <strong>cryptographic commitment</strong>, the same way Git verifies history without replaying every commit.</p>
+  <div class="callout">
+    <div class="callout-label">What a JAP receipt does NOT prove</div>
+    <p>"The model would produce this output again if you ran it." That claim is false for non-deterministic models and JAP does not make it.</p>
+  </div>
+  <div class="callout" style="border-left-color:var(--blue)">
+    <div class="callout-label" style="color:var(--blue)">What a JAP receipt DOES prove</div>
+    <p>"This exact input was sent to this exact model at this exact time and produced this exact output, and we have a signed historical record saying so."</p>
+  </div>
+  <p>A regulator asking <em>what AI made this loan decision and what was the input</em> gets a verifiable answer. They do not need to replay it. They need to know what happened.</p>
+  <p>The non-determinism of LLMs is therefore <em>not a bug for JAP — it is the reason JAP exists</em>. If LLMs were deterministic, you could verify them by replay and you would not need a protocol. Because they aren't, you need an immutable historical record. That is the entire product.</p>
+
+  <span class="section-num">§8</span>
+  <h3>THE MERKLE ROOT PIPELINE</h3>
+  <p>Receipts are aggregated daily:</p>
+  <ol>
+    <li><strong>Capture</strong> — every inference event produces a receipt at write time</li>
+    <li><strong>Hash</strong> — receipts are hashed with SHA-256 and inserted into a Merkle tree</li>
+    <li><strong>Sign</strong> — the daily Merkle root is signed by the attestor (single operator at Phase 0, federated committee at Phase 1+, permissionless at Phase 2+)</li>
+    <li><strong>Publish</strong> — the signed root is committed to <code>github.com/joulesgram/protocol/merkle-roots/YYYY-MM-DD.json</code></li>
+    <li><strong>Verify</strong> — anyone can clone the repo, hash the day's receipts independently, and confirm the root matches</li>
+  </ol>
+  <p>This is what makes JAP "blockchain-like without being a blockchain." Append-only history. Public verifiability. No silent rewrites. The cost of a chain (transaction fees, wallet onboarding friction) is replaced by the cost of the founder's discipline and the public's willingness to verify.</p>
+
+  <span class="section-num" id="unit">§9</span>
+  <h3>THE UNIT AND THE PEG</h3>
+  <p>A <strong>joule (J)</strong> is the protocol's base unit of account. It corresponds to the energy consumed by a single AI inference operation.</p>
+<pre><code>J_inference = (tokens_in + tokens_out) × α_model × β_provider</code></pre>
+  <p>Reference coefficients (April 2026):</p>
+  <table>
+    <thead><tr><th>Model class</th><th>α (J/token)</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr><td>Large cloud (GPT-4o, Claude Opus)</td><td>30</td><td>H100 @ 700W, ~23 tok/s + 2.5× DC overhead</td></tr>
+      <tr><td>Medium cloud (Sonnet, GPT-4o-mini)</td><td>25</td><td>H100 @ 700W, ~75 tok/s + 2.5× DC overhead</td></tr>
+      <tr><td>Small cloud (Haiku, Flash, Mistral 8B)</td><td>10</td><td>H100 @ 700W, ~200 tok/s + 2.5× DC overhead</td></tr>
+      <tr><td>Self-hosted 70B</td><td>15-25</td><td>Varies by hardware</td></tr>
+      <tr><td>Self-hosted 7B</td><td>3-8</td><td>Consumer GPU, lower overhead</td></tr>
+    </tbody>
+  </table>
+  <h4>The dollar peg</h4>
+<pre><code>JOULE_USD_BASIS_2026 = $0.24 per megajoule
+                    = $240 per gigajoule
+                    = $240,000 per terajoule</code></pre>
+  <p>This is the <strong>physical replacement cost</strong>, not the market price. Anyone, anywhere, can estimate the cost of manufacturing one megajoule of inference-equivalent compute by buying tokens from model providers at current rates. The peg is therefore a treasury accounting reference anchored in compute replacement cost. <strong>It is not a redemption promise, not a floor guarantee, and not a market price.</strong></p>
+
+  <span class="section-num" id="evolution">§10</span>
+  <h3>ENERGY ATTESTATION EVOLUTION (L0 → L4)</h3>
+  <p>A common critique of compute-backed tokens is that energy is <em>estimated</em>, not <em>measured</em>. This critique is correct in v0 of any such protocol. JAP addresses it explicitly with a five-level evolution path:</p>
+  <table>
+    <thead><tr><th>Level</th><th>Measurement</th><th>Trust source</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>L0</strong></td><td>tokens × constant J/token coefficient</td><td>Operator publishes coefficient table</td><td><em>Current</em></td></tr>
+      <tr><td><strong>L1</strong></td><td>Per-request energy in API response headers</td><td>Provider TLS + API attestation</td><td>Phase 1 target</td></tr>
+      <tr><td><strong>L2</strong></td><td>Coefficients refined via calibration suites</td><td>Calibration consortium</td><td>Phase 2 target</td></tr>
+      <tr><td><strong>L3</strong></td><td>Energy measured by hardware enclaves on the GPU</td><td>TEE + chip vendor attestation key</td><td>Phase 3 target</td></tr>
+      <tr><td><strong>L4</strong></td><td>Zero-knowledge proofs of inference + energy</td><td>Cryptographic</td><td>Phase 4 (research)</td></tr>
+    </tbody>
+  </table>
+  <p>Every receipt embeds its <code>energy_attestation</code> level. A receipt at L3 is qualitatively stronger than a receipt at L0. Both are valid JAP receipts, but a regulator weighing them in a high-stakes context will treat them differently.</p>
+  <p>The protocol is at L0 today and is honest about it. The protocol's value at maturity comes from being the <em>receipt format</em> — the standard that survives every level upgrade. JAP at L0 is still better than the existing alternative ("trust the vendor's logs"). JAP at L3 aims to make receipts materially harder to forge by grounding attestation in hardware-signed measurements.</p>
+
+  <span class="section-num">§11</span>
+  <h3>TRUST EVOLUTION (THE FIVE PHASES)</h3>
+  <table>
+    <thead><tr><th>Phase</th><th>Attestation</th><th>Trust assumption</th></tr></thead>
+    <tbody>
+      <tr><td><strong>0 — Bootstrap</strong></td><td>Single operator (founder)</td><td>Founder is honest</td></tr>
+      <tr><td><strong>1 — Federation</strong></td><td>3-of-5 committee</td><td>Majority of committee is honest</td></tr>
+      <tr><td><strong>2 — Permissionless</strong></td><td>Stake-slash attestors</td><td>Economic incentive aligns</td></tr>
+      <tr><td><strong>3 — Hardware</strong></td><td>TEE-attested receipts</td><td>Chip vendor signatures</td></tr>
+      <tr><td><strong>4 — Cryptographic</strong></td><td>TEE + ZK hybrid</td><td>Mathematics</td></tr>
+    </tbody>
+  </table>
+  <p>A common critique is that committee-based attestation is "the LINK problem" — an off-chain trust assumption. This is correct, and JAP acknowledges it. The difference is that JAP specifies the migration <em>out</em> of committee trust, with concrete technical implementations at each step. JAP follows LINK's playbook for early phases, then continues to TEE and ZK as the underlying technology matures.</p>
+
+  <span class="section-num">§12</span>
+  <h3>THREE-LAYER ACCOUNTING</h3>
+  <div class="three-col">
+    <div class="layer">
+      <h4>Genesis Pool</h4>
+      <p><strong>One-time. 25 MJ. Locked.</strong> The symbolic genesis block. The energy consumed in the act of imagining and bringing the protocol into being. Cannot grow. Cannot be re-issued. Additional pre-launch and post-launch qualifying spend belongs in the Operator Pool, not Genesis.</p>
+    </div>
+    <div class="layer">
+      <h4>Operator Pool</h4>
+      <p><strong>Receipt-backed.</strong> Every dollar of qualifying protocol-compute and infrastructure spend produces a daily Operator Receipt Bundle. The longer the founder runs the protocol and pays its bills, the more joules accumulate. Satoshi-scale stake gets <em>earned</em> over time, not gifted at launch.</p>
+    </div>
+    <div class="layer">
+      <h4>Network Pool</h4>
+      <p><strong>Activity-based.</strong> The live app economy: posting photos, receiving AI verdicts, rating others, earning as creators, earning as curators. Every Network Pool joule traces to a JAP receipt for a user-triggered action.</p>
+    </div>
+  </div>
+  <p>The total joule supply at any moment is exactly:</p>
+<pre><code>TOTAL_SUPPLY(t) = GENESIS
+                + OPERATOR_POOL_CUMULATIVE(t)
+                + NETWORK_POOL_CUMULATIVE(t)
+                - BURNS_CUMULATIVE(t)</code></pre>
+  <p>Every term on the right is independently verifiable. There is no unaccounted-for issuance term. This is what the constitutional rule looks like in math.</p>
+</div>
+</section>
+
+<!-- PART III -->
+<section class="fi" id="part-3">
+<div class="wrap">
+  <div class="part-divider">
+    <div class="part-label">Part III</div>
+    <h2 class="part-title">JOULENOMICS</h2>
+  </div>
+
+  <span class="section-num">§13</span>
+  <h3>THE FIVE PRINCIPLES</h3>
+  <ol>
+    <li><strong>Founder legitimacy.</strong> The founder begins with a position because he created and financed the system's birth. There is one genesis.</li>
+    <li><strong>Early-user upside.</strong> Early users benefit because they take adoption risk and help spread the first version of the network.</li>
+    <li><strong>Merit over seniority.</strong> New active users must be able to surpass old inactive users. Position is an asset that depreciates if not used.</li>
+    <li><strong>Growth dilutes concentration.</strong> Large fixed early allocations matter less in relative terms as the network grows.</li>
+    <li><strong>Auditability over narrative.</strong> Every claim eventually reduces to a receipt, a formula, and a ledger entry.</li>
+  </ol>
+
+  <span class="section-num">§14</span>
+  <h3>THE FOUNDER ALLOCATION</h3>
+  <p>The founder accumulates joules from three sources, in order of importance:</p>
+  <dl class="kv">
+    <dt>14.1</dt><dd><strong>Founder Base.</strong> 25 MJ locked at launch. Permanent. Not clawed back, not decayed, not reclassified, not reissued. The symbolic genesis block.</dd>
+    <dt>14.2</dt><dd><strong>Operator Pool.</strong> Every dollar of qualifying protocol-compute and infrastructure spend the founder pays produces an Operator Pool mint to the founder wallet. Satoshi-scale stake gets <em>earned</em> over time.</dd>
+    <dt>14.3</dt><dd><strong>Founder Continuation Reserve.</strong> A small fraction of the Network Pool reserve flows to the founder via the reserve sub-allocation — a declining drip designed to bridge between genesis and operator-pool maturity.</dd>
+  </dl>
+
+  <h4>The hard cap (5%)</h4>
+<pre><code>FOUNDER_CAP = 0.05 × TOTAL_SUPPLY(t)</code></pre>
+  <p>If <code>FOUNDER_TOTAL(t) > FOUNDER_CAP(t)</code>, then <strong>both</strong> Operator Pool minting <strong>and</strong> Continuation Reserve drip pause until the ratio normalizes back below 5%. The pause can last days, weeks, or years. The founder retains all existing holdings during the pause. The cap is structural, not enforced by a centralized rule.</p>
+
+  <h4>Why this is fair</h4>
+  <p>Estimates of Satoshi's holdings range from approximately 3% to 5% of the eventual 21M BTC supply, depending on which early-block heuristic is used. Joulegram's founder cap is set at 5% as a symbolic upper bound on creation-stage allocation: lower than typical token launches (15-25%), high enough to recognize the concentrated risk and labor of bringing a primitive into being, and structurally bounded by protocol growth and the cap-pause mechanism.</p>
+  <p>Every joule traces to a receipt. Every accumulation is bounded. Every gain is earned by physical work or financed by personal capital.</p>
+
+  <span class="section-num" id="cohorts">§15</span>
+  <h3>THE EARLY USER ALLOCATION</h3>
+  <p>Users 2 through 100,000 are protocol co-builders, not customers. Their economics reflect that.</p>
+  <table>
+    <thead><tr><th>Cohort</th><th>Range</th><th>Multiplier</th><th>Duration</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:var(--orange)">Genesis Miners</strong></td><td>#2 — #100</td><td>5×</td><td>12 months</td></tr>
+      <tr><td><strong>Pioneers</strong></td><td>#101 — #1,000</td><td>3×</td><td>12 months</td></tr>
+      <tr><td><strong>Early Builders</strong></td><td>#1,001 — #10,000</td><td>2×</td><td>12 months</td></tr>
+      <tr><td><strong>Founding Citizens</strong></td><td>#10,001 — #100,000</td><td>1.5×</td><td>6 months</td></tr>
+      <tr><td>Standard</td><td>#100,001+</td><td>1×</td><td>n/a</td></tr>
+    </tbody>
+  </table>
+  <blockquote><p><strong>The Genesis Miner door closes permanently at user #100, or 90 days after public launch, whichever comes first.</strong> After the door closes, no user will ever earn a Genesis Miner badge again. There are exactly 99 Genesis Miner slots in the history of the protocol.</p></blockquote>
+  <h4>Where the bonus joules come from</h4>
+  <p>Cohort multipliers are funded from the network reserve, primarily through the Genesis Miner bonus sub-allocation and, where needed, by reducing founder continuation for that period. Total joule supply does not change. The constitutional rule holds.</p>
+  <p><strong>The founder is literally paying early users out of his own forward stake</strong> to grow the network. Founder and early users are economically aligned.</p>
+
+  <h4>Activity gating (active surpasses dormant)</h4>
+<pre><code>ActivityMultiplier(user) = max(0.10, exp(-0.015 × days_since_last_action))</code></pre>
+  <p>A Genesis Miner who stops participating after month 1 retains their badge but their effective multiplier decays. After approximately 6 months of inactivity, the multiplier drops to the floor (10%), and a newer active user earns more in absolute terms. <strong>Active newcomers can surpass dormant Genesis Miners. This is on purpose.</strong></p>
+
+  <span class="section-num">§16</span>
+  <h3>POOL SPLIT (NETWORK MINT)</h3>
+<pre><code>50%  →  Creator Pool        — rewards posting content
+35%  →  Curator Pool        — rewards accurate human judgment
+10%  →  Engagement Pool     — rewards photos that spark discussion
+ 5%  →  Reserve             — sub-allocated below</code></pre>
+  <p>This split puts <strong>95% of network mint directly into user hands</strong>. The protocol explicitly chooses user-favorable economics over founder accumulation, because JAP only succeeds if there are users.</p>
+
+  <span class="section-num">§17</span>
+  <h3>BURN, ESCROW, AND SINKS</h3>
+  <p>A joule is <strong>burned</strong> when it is intentionally destroyed as payment for a protocol action. Once burned, it cannot be unburned.</p>
+  <p>A joule is <strong>escrowed</strong> when it is temporarily locked pending an outcome. <strong>An escrowed joule is not a burn.</strong> The canonical example is the rating stake — locked when you submit a rating, returned (with bonus, refund, or slash) when the rating window closes.</p>
+  <p>The supply identity must hold at every moment:</p>
+<pre><code>TOTAL_SUPPLY(t) = TOTAL_MINTED(t) - TOTAL_BURNED(t)</code></pre>
+
+  <span class="section-num" id="trp">§18</span>
+  <h3>THE TREASURY RECEIPT PROTOCOL (TRP)</h3>
+  <p>If real dollars are continuously being spent to run the protocol, there should be a disciplined way for qualifying spend to appear inside protocol accounting. Not every expense should create issuance. Only qualifying protocol-compute and protocol-infrastructure spend should do so.</p>
+  <table>
+    <thead><tr><th>Class</th><th>Description</th><th>Mintable?</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A</strong></td><td>Direct inference spend (model API usage)</td><td>Yes — Operator + Treasury Pool</td></tr>
+      <tr><td><strong>B</strong></td><td>Protocol compute and storage (hosting, databases, queues, CDN)</td><td>Yes — Operator + Treasury Pool</td></tr>
+      <tr><td><strong>C</strong></td><td>Development tooling (Claude Code, Cursor, Codex, ChatGPT)</td><td>Yes — Operator Pool only</td></tr>
+      <tr><td><strong>D</strong></td><td>Subsidized but non-mintable (email, monitoring)</td><td>No</td></tr>
+      <tr><td><strong>E</strong></td><td>Non-qualifying (marketing, legal, founder time)</td><td>No</td></tr>
+    </tbody>
+  </table>
+  <h4>Conversion policy</h4>
+<pre><code>USD_per_MJ = 0.24
+MJ_r = qualifying_amount_usd_r / USD_per_MJ</code></pre>
+  <p>This is a treasury accounting coefficient, not a redemption promise and not a market price.</p>
+
+  <span class="section-num">§21</span>
+  <h3>ANTI-ABUSE RULES</h3>
+  <p>A receipt-based economy only works if abuse is explicitly prevented. The rules:</p>
+  <ol>
+    <li><strong>No duplicate invoices.</strong> The same invoice hash cannot be settled twice.</li>
+    <li><strong>No double classification.</strong> Same spend cannot be counted under different receipt objects unless splits are explicit.</li>
+    <li><strong>No mixed-bill inflation.</strong> Only the qualifying fraction of a mixed bill creates issuance.</li>
+    <li><strong>No direct public inflation from dev tooling.</strong> Class C is Operator Pool only.</li>
+    <li><strong>Forward-only policy changes.</strong> Coefficient changes apply only to future batches.</li>
+    <li><strong>No receipt, no mint.</strong> Treasury issuance requires a valid receipt and settlement batch.</li>
+    <li><strong>No retroactive re-classification.</strong> Once settled, a receipt's class cannot be changed.</li>
+    <li><strong>No founder cap override.</strong> When the 5% cap is reached, accumulation pauses. No manual override.</li>
+  </ol>
+</div>
+</section>
+
+<!-- PART IV -->
+<section class="fi" id="part-4">
+<div class="wrap">
+  <div class="part-divider">
+    <div class="part-label">Part IV</div>
+    <h2 class="part-title">THE FIVE-PHASE<br>ROADMAP</h2>
+  </div>
+  <p class="sub">The roadmap is sequenced by what has to be true, not by calendar time. A phase that takes 6 months in the bull case may take 18 in the realistic case.</p>
+
+  <span class="section-num">§23</span>
+  <h3>PHASE 0 — BOOTSTRAP (NOW → 1,000 USERS)</h3>
+  <p><strong>Trigger:</strong> Public launch with this whitepaper committed. <strong>Exit:</strong> 1,000 active users + 30 days of clean Merkle roots + zero violations of the constitutional rule.</p>
+
+  <h4>What early users can do — Tier 1 (critical)</h4>
+  <ol>
+    <li><strong>Sign up before user #100 closes.</strong> The Genesis Miner badge is permanent and limited. After user #100 (or 90 days from launch), no user will ever earn it again.</li>
+    <li><strong>Post genuinely.</strong> Don't post for joules. Post your best photos. The four critics tell you what's good and the network rewards what others want to rate.</li>
+    <li><strong>Rate accurately.</strong> Honesty compounds. A Genesis Miner who rates accurately for 12 months earns vastly more than one who rates randomly.</li>
+    <li><strong>Refer one person you'd want to drink coffee with.</strong> Quality over quantity. Bring people who will participate, not numbers.</li>
+  </ol>
+
+  <h4>Tier 2 (high-leverage)</h4>
+  <ol start="5">
+    <li>File bugs on GitHub (Bootstrapper-eligible)</li>
+    <li>Write a public review (Substack, Twitter, blog)</li>
+    <li>Suggest the fifth AI critic personality</li>
+    <li>Bring a photographer friend who isn't on social media</li>
+  </ol>
+
+  <h4>Tier 3 (long-term)</h4>
+  <ol start="9">
+    <li>Start designing the custom agent you'll build at Phase 1</li>
+    <li>Draft a JAP integration proposal for your industry</li>
+  </ol>
+
+  <span class="section-num">§24</span>
+  <h3>PHASE 1 — FEDERATION (1k → 10k)</h3>
+  <p>Move from single-operator to federated attestation. Open custom agent creation. Ship the first non-Joulegram JAP integration. Reach L1 energy attestation with at least one cloud provider.</p>
+  <p><strong>What early users can do:</strong> Apply to be one of the first five attestors. Build a custom agent. Build a JAP integration in your industry. Bootstrapper bonus 500 MJ for the first third-party integration shipped.</p>
+
+  <span class="section-num">§25</span>
+  <h3>PHASE 2 — PERMISSIONLESS (10k → 100k)</h3>
+  <p>Permissionless attestor network with stake/slash. JAP expands beyond photos. L2 calibrated energy attestation across major providers. Treasury becomes self-sustaining.</p>
+  <p><strong>What early users can do:</strong> Run a permissionless attestor (stake joules, sign roots, earn fees). Ship a JAP client in a vertical you understand. Become a calibration consortium member.</p>
+
+  <span class="section-num">§26</span>
+  <h3>PHASE 3 — HARDWARE (100k → 1M)</h3>
+  <p>L3 hardware attestation becomes default. The transferability question gets resolved. JAP becomes a category, not a project. Network supply approaches 1 PJ.</p>
+
+  <span class="section-num">§27</span>
+  <h3>PHASE 4 — STANDARD (1M+)</h3>
+  <p>JAP receipts on every consequential AI judgment. The unit of account is the joule. The receipt format is JAP. The trust model is L3/L4 hybrid. The protocol's treasury is a non-profit foundation. The founder is on the board. Genesis Miners are honored ancestors.</p>
+</div>
+</section>
+
+<!-- PART V -->
+<section class="fi" id="part-5">
+<div class="wrap">
+  <div class="part-divider">
+    <div class="part-label">Part V</div>
+    <h2 class="part-title">THE TRILLION<br>DOLLAR SCENARIO</h2>
+  </div>
+
+  <span class="section-num" id="valuation">§28</span>
+  <h3>NETWORK VALUATION FRAMEWORK</h3>
+  <blockquote><p><strong>These are transparency metrics for thinking about protocol scale, not promises of redemption, market support, or future token price.</strong></p></blockquote>
+  <p>The protocol publishes three valuation numbers in every monthly transparency report: the <strong>Replacement Compute Value</strong> (RCV) — the unfalsifiable physics floor; the <strong>Live Compute Purchasing Power</strong> (LCPP) — how much current inference one joule can buy; and the <strong>Network Utility Value</strong> (NUV) — a scenario-weighted strategic estimate.</p>
+
+  <span class="section-num">§29</span>
+  <h3>NETWORK VALUE AT EACH SCALE</h3>
+  <table class="scenario-table">
+    <thead><tr><th>Network supply</th><th>Floor (RCV)</th><th>Realistic (10×)</th><th>Trillion-dollar (1000×)</th></tr></thead>
+    <tbody>
+      <tr><td>1 GJ (1k users)</td><td>$240</td><td>$2,400</td><td>n/a</td></tr>
+      <tr><td>100 GJ (10k users)</td><td>$24,000</td><td>$240,000</td><td>n/a</td></tr>
+      <tr><td>10 TJ (100k users)</td><td>$2.4M</td><td>$24M</td><td>$2.4B</td></tr>
+      <tr><td>1 PJ (1M users)</td><td>$240M</td><td>$2.4B</td><td>$240B</td></tr>
+      <tr><td>1 EJ (10M+ users + JAP standard)</td><td>$240B</td><td>$2.4T</td><td><strong>$240T</strong></td></tr>
+    </tbody>
+  </table>
+
+  <span class="section-num">§30</span>
+  <h3>WHAT HAS TO BE TRUE</h3>
+  <p>The trillion-dollar scenario requires JAP to become the receipt layer for AI judgment globally. Specifically:</p>
+  <ul>
+    <li>Every consequential AI inference is producing a JAP-compliant receipt</li>
+    <li>Major regulators (EU, US, India, China) explicitly accept JAP receipts as evidence</li>
+    <li>Major insurance companies require JAP receipts to underwrite AI liability</li>
+    <li>Major enterprises use JAP receipts for internal AI audit trails</li>
+    <li>Major hardware vendors ship JAP-compatible TEE attestation by default</li>
+    <li>Major cloud providers offer JAP attestation as a standard product</li>
+    <li>The protocol has outlived multiple generations of clients, model architectures, and chip architectures</li>
+  </ul>
+  <p>These numbers are not promises. They are the math of what would happen if JAP becomes what it could become. <strong>Probability is low. Asymmetric upside is the entire point.</strong></p>
+</div>
+</section>
+
+<!-- PART VI -->
+<section class="fi" id="part-6">
+<div class="wrap">
+  <div class="part-divider">
+    <div class="part-label">Part VI</div>
+    <h2 class="part-title">HONESTY<br>AND LIMITS</h2>
+  </div>
+
+  <span class="section-num">§33</span>
+  <h3>WHAT THIS WHITEPAPER IS NOT CLAIMING</h3>
+  <p>This whitepaper does <strong>not</strong> claim:</p>
+  <ul>
+    <li>That joules are redeemable for dollars</li>
+    <li>That the treasury conversion coefficient is a market price</li>
+    <li>That all infrastructure cost maps perfectly to physical energy</li>
+    <li>That the protocol is already fully decentralized</li>
+    <li>That the trillion-dollar scenario is likely or guaranteed</li>
+    <li>That the founder will retain influence post-Phase 3</li>
+    <li>That non-determinism in LLMs has been eliminated</li>
+    <li>That Phase 0 attestation is trustless</li>
+  </ul>
+  <p>It claims something narrower and stronger:</p>
+  <blockquote><p>Joulegram is building a disciplined, physics-grounded, receipt-backed system for AI judgment, starting with a product people can actually use. Every joule traces to a receipt. Every receipt traces to a real bill. The protocol earns the right to become more open, one phase at a time, by surviving the integrity tests of the previous phase.</p></blockquote>
+
+  <span class="section-num" id="prior-art">§34</span>
+  <h3>COMPARISON TO PRIOR ART</h3>
+  <table>
+    <thead><tr><th>Project</th><th>What it does</th><th>How JAP differs</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Bittensor (TAO)</strong></td><td>Decentralized AI inference marketplace</td><td>TAO incentivizes producing AI; JAP incentivizes verifying AI. Complementary — TAO subnets could produce JAP receipts.</td></tr>
+      <tr><td><strong>Oraichain</strong></td><td>AI oracle network bringing inference results onto chain</td><td>Orai puts AI on a chain. JAP creates a verifiable receipt format that any chain (or no chain) can consume.</td></tr>
+      <tr><td><strong>SingularityNET</strong></td><td>AI marketplace with reputation and PoR/PoI hybrid</td><td>SingularityNET is a marketplace. JAP is a receipt protocol. Services could produce JAP receipts as part of their output.</td></tr>
+      <tr><td><strong>Chainlink (LINK)</strong></td><td>Oracle network with committee-based attestation</td><td>Closest architectural cousin. JAP follows LINK's playbook for early phases, then specifies the path beyond it (TEE, ZK).</td></tr>
+      <tr><td><strong>EigenLayer</strong></td><td>Restaking, economic security as a service</td><td>One possible substrate for JAP attestor staking in Phase 2+. Not a competitor.</td></tr>
+    </tbody>
+  </table>
+  <p>JAP is positioned as the <strong>receipt layer underneath</strong> other AI-related protocols. The other projects are inference, marketplaces, oracles, and security primitives. JAP is the format they all need but none of them currently provide.</p>
+
+  <span class="section-num">§35</span>
+  <h3>THE NARRATIVE IN ONE PARAGRAPH</h3>
+  <blockquote><p>Bitcoin grounded money in physics. Ethereum grounded computation in physics. Joulegram grounds AI judgment in physics, makes that judgment socially engaging, and then turns the receipts from that judgment into a public, auditable economic system. The founder is honored because he created the primitive. Early users are rewarded because they create the first network. Active users can outrun passive users because merit must beat chronology. And every serious claim the protocol makes eventually reduces to a receipt, a batch artifact, and a ledger entry.</p></blockquote>
+
+  <span class="section-num">§36</span>
+  <h3>CLOSING</h3>
+  <p>There is only one genesis. There are only a handful of people who will ever be able to say they were there when verifiable AI judgment first became a live network.</p>
+  <p>Joulegram is designed so that the founder is properly honored, the early users are properly rewarded, the active users are properly empowered, and the receipts eventually prove what the protocol claims.</p>
+  <p style="font-size:20px;color:#fff;font-style:italic;text-align:center;margin-top:40px;font-family:'Bebas Neue',sans-serif;letter-spacing:3px">THAT IS THE BET.</p>
+
+  <hr>
+
+  <div style="display:flex;gap:12px;margin-top:40px;flex-wrap:wrap">
+    <a href="https://github.com/joulesgram/protocol/blob/main/WHITEPAPER.md" class="btn btn-g">VIEW ON GITHUB →</a>
+    <a href="/thesis.html" class="btn btn-g">READ THE THESIS</a>
+    <a href="https://joulegram.vercel.app" class="btn btn-g">LAUNCH APP ⚡</a>
+  </div>
+
+  <p style="margin-top:48px;font-size:13px;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:1px;text-align:center">
+    Mohit Lalvani · Founder, User #1 · Goa, India · April 9, 2026<br>
+    joulegram.com · github.com/joulesgram
+  </p>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+  <div style="display:flex;align-items:baseline;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;margin-bottom:14px;opacity:0.4">
+    <span>JOUL</span><span class="bolt" id="foot-bolt"></span><span style="color:var(--blue)">GRAM</span>
+  </div>
+  <div class="flinks">
+    <a href="/">Home</a>
+    <a href="/policy.html">How It Works</a>
+    <a href="/thesis.html">Thesis</a>
+    <a href="/whitepaper.html">Whitepaper</a>
+    <a href="/changelog.html">Changelog</a>
+    <a href="/content-policy.html">Content Policy</a>
+    <a href="https://joulegram.vercel.app">App</a>
+    <a href="https://github.com/joulesgram">GitHub</a>
+  </div>
+  <p class="fcopy">CURRENCY IS COMPUTE — OPEN PROTOCOL — BUILT IN GOA</p>
+</div>
+</footer>
+
+<script>
+function B(w,h,fill,glow){
+  var f=glow?'filter="drop-shadow(0 0 '+(h*0.08)+'px '+fill+')"':'';
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 63 87" style="display:inline-block;vertical-align:baseline;margin-bottom:-'+(h*0.02)+'px"><polygon points="40,0 14,38 30,38 8,87 55,42 35,42 58,0" fill="'+fill+'" '+f+'/></svg>';
+}
+document.getElementById('hdr-bolt').innerHTML = B(14, 19, '#00d4ff', true);
+document.getElementById('foot-bolt').innerHTML = B(12, 17, '#00d4ff', false);
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('v'); });
+}, {threshold:0.08});
+document.querySelectorAll('.fi').forEach(function(el){ obs.observe(el); });
+</script>
+</body>
+</html>
