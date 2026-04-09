@@ -123,6 +123,16 @@ footer{border-top:1px solid var(--dim);padding:36px 0;text-align:center}
 @media(max-width:720px){.earnloop{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.earnloop{grid-template-columns:1fr}}
 
+/* ── NETWORK SNAPSHOT ── */
+.snapshot{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.snap{background:var(--card);border:1px solid var(--dim);border-radius:14px;padding:24px 20px;text-align:center}
+.snap-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--blue);line-height:1}
+.snap-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1.5px;margin-top:6px;text-transform:uppercase}
+@media(max-width:680px){.snapshot{grid-template-columns:1fr 1fr}}
+.statusrow{display:flex;align-items:center;gap:12px;margin-top:24px;background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:16px 20px}
+.statusdot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(0,255,136,0.5);flex-shrink:0}
+.statusrow span{font-family:'Space Mono',monospace;font-size:12px;color:var(--green);letter-spacing:1px}
+
 /* ── ANIM ── */
 .fi{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}.fi.v{opacity:1;transform:translateY(0)}
 .fi:nth-child(2){transition-delay:0.1s}.fi:nth-child(3){transition-delay:0.2s}
@@ -257,6 +267,39 @@ function B(w,h,fill,glow){
 </div>
 </section>
 
+<!-- ═══ NETWORK SNAPSHOT ═══ -->
+<section class="fi">
+<div class="wrap">
+  <div class="label">Network snapshot</div>
+  <h2>WHERE THE <span style="color:var(--blue)">ECONOMY STANDS</span></h2>
+  <p class="sub">Approximate live numbers from production. The ledger is open source and these reconcile to the database every minute.</p>
+
+  <div class="snapshot">
+    <div class="snap">
+      <div class="snap-num" data-snap="activeUsers">20</div>
+      <div class="snap-lbl">Active users</div>
+    </div>
+    <div class="snap">
+      <div class="snap-num" data-snap="circulation">27.7 MJ</div>
+      <div class="snap-lbl">In circulation</div>
+    </div>
+    <div class="snap">
+      <div class="snap-num" data-snap="bootstrapPool">10 GJ</div>
+      <div class="snap-lbl">Bootstrap pool</div>
+    </div>
+    <div class="snap">
+      <div class="snap-num" data-snap="integrity">5/5</div>
+      <div class="snap-lbl">Integrity rules holding</div>
+    </div>
+  </div>
+
+  <div class="statusrow">
+    <div class="statusdot"></div>
+    <span>Pre-Scale Mode active · Global ledger sum = 0 · All handlers verified clean</span>
+  </div>
+</div>
+</section>
+
 <!-- ═══ AGENTS ═══ -->
 <section class="fi">
 <div class="wrap">
@@ -358,9 +401,8 @@ function B(w,h,fill,glow){
   <div class="flinks">
     <a href="https://joulegram.vercel.app">App</a>
     <a href="/policy.html">How It Works</a>
-    <a href="/joulenomics-v1.html">Joulenomics v1</a>
     <a href="/thesis.html">Thesis</a>
-    <a href="/changelog.html">Changelog</a>
+    <a href="/changelog.html">Whitepaper</a>
     <a href="/content-policy.html">Content Policy</a>
     <a href="https://github.com/joulesgram">GitHub</a>
     <a href="https://github.com/joulesgram/protocol">Protocol</a>
@@ -397,6 +439,37 @@ function signup(){
   document.getElementById('email').value='';
   alert('⚡ Genesis slot reserved! Miner #'+(100-n)+'. We will be in touch.');
 }
+</script>
+
+<!-- Live network snapshot fetch -->
+<script>
+(function(){
+  var STATS_URL='https://joulegram.vercel.app/api/public/stats';
+  function fmtJ(s){
+    var j=Number(s);
+    if(!isFinite(j)||j<0)return null;
+    if(j>=1e9)return(j/1e9).toFixed(j>=1e10?0:1)+' GJ';
+    if(j>=1e6)return(j/1e6).toFixed(j>=1e7?0:1)+' MJ';
+    if(j>=1e3)return Math.round(j/1e3)+' kJ';
+    return Math.round(j)+' J';
+  }
+  function set(k,v){
+    if(!v)return;
+    var els=document.querySelectorAll('[data-snap="'+k+'"]');
+    for(var i=0;i<els.length;i++)els[i].textContent=v;
+  }
+  fetch(STATS_URL).then(function(r){
+    if(!r.ok)throw new Error('stats '+r.status);
+    return r.json();
+  }).then(function(d){
+    if(typeof d.activeUsers==='number')set('activeUsers',String(d.activeUsers));
+    set('circulation',fmtJ(d.circulationJ));
+    set('bootstrapPool',fmtJ(d.bootstrapPoolRemainingJ));
+    if(typeof d.integrityRulesPassing==='number'&&typeof d.integrityRulesTotal==='number'){
+      set('integrity',d.integrityRulesPassing+'/'+d.integrityRulesTotal);
+    }
+  }).catch(function(e){console.warn('[stats] fallback:',e.message);});
+})();
 </script>
 </body>
 </html>

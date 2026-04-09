@@ -116,7 +116,7 @@ function B(w,h,fill,glow){
   <div class="label">Joulegram changelog</div>
   <h1 class="ph1">STATE OF THE <span style="color:var(--blue)">ECONOMY</span></h1>
   <p class="phsub">A live snapshot of what's running in the Joulegram production economy right now, what shipped recently, and what's coming next. Updated as the protocol evolves.</p>
-  <div class="asof">As of April 8, 2026</div>
+  <div class="asof">As of April 9, 2026</div>
 </div>
 </section>
 
@@ -128,19 +128,19 @@ function B(w,h,fill,glow){
 
   <div class="snapshot">
     <div class="snap">
-      <div class="snap-num">16</div>
+      <div class="snap-num" data-snap="activeUsers">20</div>
       <div class="snap-lbl">Active users</div>
     </div>
     <div class="snap">
-      <div class="snap-num">27.7 MJ</div>
+      <div class="snap-num" data-snap="circulation">27.7 MJ</div>
       <div class="snap-lbl">In circulation</div>
     </div>
     <div class="snap">
-      <div class="snap-num">10 MJ</div>
+      <div class="snap-num" data-snap="bootstrapPool">10 GJ</div>
       <div class="snap-lbl">Bootstrap pool</div>
     </div>
     <div class="snap">
-      <div class="snap-num">5/5</div>
+      <div class="snap-num" data-snap="integrity">5/5</div>
       <div class="snap-lbl">Integrity rules holding</div>
     </div>
   </div>
@@ -161,7 +161,7 @@ function B(w,h,fill,glow){
   <div class="mech">
     <div class="mech-day">Day 1 · Shipped April 7, 2026</div>
     <h4>BATTERY REFILL + LOGIN BONUS</h4>
-    <p>Hourly regen of 10 kJ for users below 150 kJ. Daily login bonus of 50 kJ on first open per UTC day. Both funded from a 10 MJ bootstrap pool with double-entry ledger writes.</p>
+    <p>Hourly regen of 10 kJ for users below 150 kJ. Daily login bonus of 50 kJ on first open per UTC day. Both funded from a 10 GJ bootstrap pool with double-entry ledger writes.</p>
     <div class="mech-status">LIVE</div>
   </div>
 
@@ -273,7 +273,7 @@ function B(w,h,fill,glow){
     <div class="tlevent">
       <div class="tldate">April 7, 2026</div>
       <h5>Day 1 — Pre-Scale Mode activated</h5>
-      <p>Hourly regen + daily login bonus + 10 MJ bootstrap pool went live. First user-visible joule earnings outside the original signup tier system.</p>
+      <p>Hourly regen + daily login bonus + 10 GJ bootstrap pool went live. First user-visible joule earnings outside the original signup tier system.</p>
     </div>
   </div>
 </div>
@@ -350,6 +350,37 @@ var obs = new IntersectionObserver(function(entries){
   entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('v'); });
 }, {threshold:0.12});
 document.querySelectorAll('.fi').forEach(function(el){ obs.observe(el); });
+</script>
+
+<!-- Live network snapshot fetch -->
+<script>
+(function(){
+  var STATS_URL='https://joulegram.vercel.app/api/public/stats';
+  function fmtJ(s){
+    var j=Number(s);
+    if(!isFinite(j)||j<0)return null;
+    if(j>=1e9)return(j/1e9).toFixed(j>=1e10?0:1)+' GJ';
+    if(j>=1e6)return(j/1e6).toFixed(j>=1e7?0:1)+' MJ';
+    if(j>=1e3)return Math.round(j/1e3)+' kJ';
+    return Math.round(j)+' J';
+  }
+  function set(k,v){
+    if(!v)return;
+    var els=document.querySelectorAll('[data-snap="'+k+'"]');
+    for(var i=0;i<els.length;i++)els[i].textContent=v;
+  }
+  fetch(STATS_URL).then(function(r){
+    if(!r.ok)throw new Error('stats '+r.status);
+    return r.json();
+  }).then(function(d){
+    if(typeof d.activeUsers==='number')set('activeUsers',String(d.activeUsers));
+    set('circulation',fmtJ(d.circulationJ));
+    set('bootstrapPool',fmtJ(d.bootstrapPoolRemainingJ));
+    if(typeof d.integrityRulesPassing==='number'&&typeof d.integrityRulesTotal==='number'){
+      set('integrity',d.integrityRulesPassing+'/'+d.integrityRulesTotal);
+    }
+  }).catch(function(e){console.warn('[stats] fallback:',e.message);});
+})();
 </script>
 </body>
 </html>
