@@ -88,12 +88,6 @@ h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,7vw,56px);letter-spa
 
 /* ── SIGNUP ── */
 .signup{text-align:center;padding:120px 0 80px}
-.su-box{display:flex;gap:10px;max-width:420px;margin:20px auto 0;flex-wrap:wrap;justify-content:center}
-.su-box input{flex:1;min-width:200px;padding:14px 18px;border-radius:10px;border:1px solid rgba(0,212,255,0.2);background:rgba(0,212,255,0.04);color:#fff;font-family:'Space Mono',monospace;font-size:14px;outline:none}
-.su-box input::placeholder{color:rgba(255,255,255,0.2)}
-.su-box input:focus{border-color:var(--blue);box-shadow:0 0 20px rgba(0,212,255,0.12)}
-.su-note{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-top:10px}
-.su-note span{color:var(--blue)}
 
 /* ── FOUNDER ── */
 .founder{margin-top:28px;max-width:600px}
@@ -132,6 +126,10 @@ footer{border-top:1px solid var(--dim);padding:36px 0;text-align:center}
 .statusrow{display:flex;align-items:center;gap:12px;margin-top:24px;background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:16px 20px}
 .statusdot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(0,255,136,0.5);flex-shrink:0}
 .statusrow span{font-family:'Space Mono',monospace;font-size:12px;color:var(--green);letter-spacing:1px}
+.genesisrow{display:flex;align-items:center;gap:12px;margin-top:12px;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.2);border-radius:10px;padding:16px 20px}
+.genesisdot{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px rgba(0,212,255,0.5);flex-shrink:0}
+.genesisrow span{font-family:'Space Mono',monospace;font-size:12px;color:var(--blue);letter-spacing:1px}
+.genesisrow .gs-num{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--blue)}
 
 /* ── ANIM ── */
 .fi{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}.fi.v{opacity:1;transform:translateY(0)}
@@ -297,6 +295,11 @@ function B(w,h,fill,glow){
     <div class="statusdot"></div>
     <span>Pre-Scale Mode active · Global ledger sum = 0 · All handlers verified clean</span>
   </div>
+
+  <div class="genesisrow">
+    <div class="genesisdot"></div>
+    <span>⚡ Genesis slots remaining: <span class="gs-num" data-snap="genesisSlots">80</span> / 100 · 500 kJ starting allocation for the first 100 miners</span>
+  </div>
 </div>
 </section>
 
@@ -382,13 +385,7 @@ function B(w,h,fill,glow){
   <h2 style="font-size:clamp(36px,8vw,60px);letter-spacing:6px">JOIN THE GENESIS</h2>
   <p style="color:var(--muted);font-size:15px;margin-bottom:4px">First 100 users are Genesis miners — 500 kJ starting allocation</p>
   <p style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2);margin-bottom:24px">Plus a refilling battery, daily charge bonus, and referral chain rewards.</p>
-  <a href="https://joulegram.vercel.app" class="btn btn-p" style="font-size:18px;padding:16px 40px;margin-bottom:20px">LAUNCH APP ⚡</a>
-  <p style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px">or join the waitlist for updates</p>
-  <div class="su-box">
-    <input type="email" placeholder="your@email.com" id="email">
-    <button class="btn btn-g" style="font-size:14px;padding:12px 20px" onclick="signup()">NOTIFY ME</button>
-  </div>
-  <p class="su-note">Genesis slots remaining: <span id="slots">84</span> / 100</p>
+  <a href="https://joulegram.vercel.app" class="btn btn-p" style="font-size:18px;padding:16px 40px">LAUNCH APP ⚡</a>
 </div>
 </div>
 
@@ -428,17 +425,6 @@ var obs = new IntersectionObserver(function(entries){
   entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('v'); });
 }, {threshold:0.12});
 document.querySelectorAll('.fi').forEach(function(el){ obs.observe(el); });
-
-// Signup
-function signup(){
-  var e=document.getElementById('email').value;
-  if(!e||e.indexOf('@')<0){alert('Enter a valid email');return}
-  var s=document.getElementById('slots');
-  var n=parseInt(s.textContent)-1;
-  s.textContent=Math.max(0,n);
-  document.getElementById('email').value='';
-  alert('⚡ Genesis slot reserved! Miner #'+(100-n)+'. We will be in touch.');
-}
 </script>
 
 <!-- Live network snapshot fetch -->
@@ -462,7 +448,10 @@ function signup(){
     if(!r.ok)throw new Error('stats '+r.status);
     return r.json();
   }).then(function(d){
-    if(typeof d.activeUsers==='number')set('activeUsers',String(d.activeUsers));
+    if(typeof d.activeUsers==='number'){
+      set('activeUsers',String(d.activeUsers));
+      set('genesisSlots',String(Math.max(0,100-d.activeUsers)));
+    }
     set('circulation',fmtJ(d.circulationJ));
     set('bootstrapPool',fmtJ(d.bootstrapPoolRemainingJ));
     if(typeof d.integrityRulesPassing==='number'&&typeof d.integrityRulesTotal==='number'){

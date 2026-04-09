@@ -44,6 +44,10 @@ p{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.8;margin-top:18px;max
 .statusrow{display:flex;align-items:center;gap:12px;margin-top:24px;background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:16px 20px}
 .statusdot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(0,255,136,0.5);flex-shrink:0}
 .statusrow span{font-family:'Space Mono',monospace;font-size:12px;color:var(--green);letter-spacing:1px}
+.genesisrow{display:flex;align-items:center;gap:12px;margin-top:12px;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.2);border-radius:10px;padding:16px 20px}
+.genesisdot{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px rgba(0,212,255,0.5);flex-shrink:0}
+.genesisrow span{font-family:'Space Mono',monospace;font-size:12px;color:var(--blue);letter-spacing:1px}
+.genesisrow .gs-num{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--blue)}
 .mech{background:var(--card);border:1px solid var(--dim);border-left:3px solid var(--blue);border-radius:14px;padding:24px 28px;margin-top:14px}
 .mech-day{font-family:'Space Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
 .mech h4{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;margin-bottom:8px;line-height:1.15}
@@ -148,6 +152,11 @@ function B(w,h,fill,glow){
   <div class="statusrow">
     <div class="statusdot"></div>
     <span>Pre-Scale Mode active · Global ledger sum = 0 · All handlers verified clean</span>
+  </div>
+
+  <div class="genesisrow">
+    <div class="genesisdot"></div>
+    <span>⚡ Genesis slots remaining: <span class="gs-num" data-snap="genesisSlots">80</span> / 100 · 500 kJ starting allocation for the first 100 miners</span>
   </div>
 </div>
 </section>
@@ -373,7 +382,10 @@ document.querySelectorAll('.fi').forEach(function(el){ obs.observe(el); });
     if(!r.ok)throw new Error('stats '+r.status);
     return r.json();
   }).then(function(d){
-    if(typeof d.activeUsers==='number')set('activeUsers',String(d.activeUsers));
+    if(typeof d.activeUsers==='number'){
+      set('activeUsers',String(d.activeUsers));
+      set('genesisSlots',String(Math.max(0,100-d.activeUsers)));
+    }
     set('circulation',fmtJ(d.circulationJ));
     set('bootstrapPool',fmtJ(d.bootstrapPoolRemainingJ));
     if(typeof d.integrityRulesPassing==='number'&&typeof d.integrityRulesTotal==='number'){
